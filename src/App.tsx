@@ -15,6 +15,7 @@ import { Profile } from "./pages/Profile";
 import { Leaderboard } from "./pages/Leaderboard";
 import { MasterClassLayout } from "./components/MasterClassLayout";
 import { getUserProfile } from "./utils/storage";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -52,7 +53,7 @@ const App = () => {
           <Route path="/skill-testing/quiz/:assessmentId" element={<QuizRunner isComprehensive={false} />} />
 
           {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
