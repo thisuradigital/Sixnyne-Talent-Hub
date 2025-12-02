@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, User, Award, BookOpen, TrendingUp, LogOut, Edit2, Save } from "lucide-react";
+import { User, Award, BookOpen, TrendingUp, LogOut, Edit2, Save } from "lucide-react";
 import { saveUserProfile, clearUserProfile, calculateTotalXP, getTotalCompletedSections, getAverageQuizScore, getUserProfile } from "@/utils/storage";
 import { MODULES } from "@/data/constants";
 
@@ -41,11 +41,6 @@ export const Profile = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <Button onClick={() => navigate("/masterclass/dashboard")} variant="ghost" className="mb-6">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Dashboard
-        </Button>
-
         <div className="grid gap-6">
           {/* Profile Info Card */}
           <Card>
