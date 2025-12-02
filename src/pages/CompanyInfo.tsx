@@ -1,13 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, Target, Heart, Users, Award, MapPin, HelpCircle } from "lucide-react";
 
-interface CompanyInfoProps {
-  onBack: () => void;
-}
-
-export const CompanyInfo = ({ onBack }: CompanyInfoProps) => {
+export const CompanyInfo = () => {
+  const navigate = useNavigate();
   const values = [
     {
       icon: Target,
@@ -64,7 +62,7 @@ export const CompanyInfo = ({ onBack }: CompanyInfoProps) => {
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-6">
-          <Button variant="ghost" onClick={onBack} className="mb-4">
+          <Button variant="ghost" onClick={() => navigate("/")} className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Button>
@@ -218,7 +216,7 @@ export const CompanyInfo = ({ onBack }: CompanyInfoProps) => {
             <p className="text-muted-foreground mb-6">
               Explore our open positions and take the first step toward an exciting career.
             </p>
-            <Button onClick={onBack} size="lg">
+            <Button onClick={() => navigate("/")} size="lg">
               Explore Opportunities
             </Button>
           </CardContent>

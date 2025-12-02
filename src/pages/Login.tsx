@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,11 +8,11 @@ import { GraduationCap } from "lucide-react";
 import { saveUserProfile } from "@/utils/storage";
 import { UserProfile } from "@/types";
 
-interface LoginProps {
-  onLogin: (profile: UserProfile) => void;
-}
-
-export const Login = ({ onLogin }: LoginProps) => {
+export const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isMasterClass = location.pathname.includes("masterclass");
+  const isSkillTesting = location.pathname.includes("skill-testing");
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [errors, setErrors] = useState({ name: "", role: "" });
@@ -31,7 +32,13 @@ export const Login = ({ onLogin }: LoginProps) => {
 
     const profile: UserProfile = { name: name.trim(), role: role.trim() };
     saveUserProfile(profile);
-    onLogin(profile);
+    
+    // Navigate based on pathway
+    if (isMasterClass) {
+      navigate("/masterclass/dashboard");
+    } else if (isSkillTesting) {
+      navigate("/skill-testing");
+    }
   };
 
   return (

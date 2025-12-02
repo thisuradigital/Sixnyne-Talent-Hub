@@ -1,3 +1,4 @@
+import { useParams, useNavigate } from "react-router-dom";
 import { JOB_LISTINGS } from "@/data/jobs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -5,13 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, MapPin, Briefcase, Calendar, CheckCircle2 } from "lucide-react";
 
-interface JobDetailsProps {
-  jobId: string;
-  onApply: () => void;
-  onBack: () => void;
-}
-
-export const JobDetails = ({ jobId, onApply, onBack }: JobDetailsProps) => {
+export const JobDetails = () => {
+  const { jobId } = useParams<{ jobId: string }>();
+  const navigate = useNavigate();
   const job = JOB_LISTINGS.find(j => j.id === jobId);
 
   if (!job) {
@@ -19,7 +16,7 @@ export const JobDetails = ({ jobId, onApply, onBack }: JobDetailsProps) => {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="p-8">
           <p className="text-muted-foreground">Job not found</p>
-          <Button onClick={onBack} className="mt-4">Back to Listings</Button>
+          <Button onClick={() => navigate("/jobs")} className="mt-4">Back to Listings</Button>
         </Card>
       </div>
     );
@@ -30,7 +27,7 @@ export const JobDetails = ({ jobId, onApply, onBack }: JobDetailsProps) => {
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-6">
-          <Button variant="ghost" onClick={onBack} className="mb-4">
+          <Button variant="ghost" onClick={() => navigate("/jobs")} className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Listings
           </Button>
@@ -63,7 +60,7 @@ export const JobDetails = ({ jobId, onApply, onBack }: JobDetailsProps) => {
               </Badge>
             </div>
 
-            <Button onClick={onApply} size="lg" className="w-full sm:w-auto">
+            <Button onClick={() => navigate(`/jobs/${jobId}/apply`)} size="lg" className="w-full sm:w-auto">
               Apply for This Position
             </Button>
           </CardHeader>
@@ -109,7 +106,7 @@ export const JobDetails = ({ jobId, onApply, onBack }: JobDetailsProps) => {
               <p className="text-muted-foreground mb-4">
                 Join our team and be part of something amazing. Submit your application today.
               </p>
-              <Button onClick={onApply} size="lg">
+              <Button onClick={() => navigate(`/jobs/${jobId}/apply`)} size="lg">
                 Start Application
               </Button>
             </div>

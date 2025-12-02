@@ -1,18 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Users, Palette, Sparkles, ArrowLeft } from "lucide-react";
-import { MasterClassCategory } from "@/types";
 
-interface MasterClassHubProps {
-  onSelectCategory: (category: MasterClassCategory) => void;
-  onBack: () => void;
-}
-
-export const MasterClassHub = ({ onSelectCategory, onBack }: MasterClassHubProps) => {
+export const MasterClassHub = () => {
+  const navigate = useNavigate();
   const categories = [
     {
-      id: "cs" as MasterClassCategory,
+      id: "cs",
+      path: "/masterclass/login",
       title: "Client Service MasterClass",
       description: "Master the art of exceptional client relationships, communication, and service delivery",
       icon: Users,
@@ -22,7 +19,8 @@ export const MasterClassHub = ({ onSelectCategory, onBack }: MasterClassHubProps
       modules: 5
     },
     {
-      id: "design" as MasterClassCategory,
+      id: "design",
+      path: "#",
       title: "Design MasterClass",
       description: "Learn design fundamentals, brand identity, and visual communication excellence",
       icon: Palette,
@@ -32,7 +30,8 @@ export const MasterClassHub = ({ onSelectCategory, onBack }: MasterClassHubProps
       modules: 5
     },
     {
-      id: "creative" as MasterClassCategory,
+      id: "creative",
+      path: "#",
       title: "Creative MasterClass",
       description: "Develop creative strategy, copywriting, and content creation skills",
       icon: Sparkles,
@@ -48,7 +47,7 @@ export const MasterClassHub = ({ onSelectCategory, onBack }: MasterClassHubProps
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-6">
-          <Button variant="ghost" onClick={onBack} className="mb-4">
+          <Button variant="ghost" onClick={() => navigate("/")} className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Button>
@@ -90,7 +89,7 @@ export const MasterClassHub = ({ onSelectCategory, onBack }: MasterClassHubProps
                   </div>
                   
                   <Button 
-                    onClick={() => onSelectCategory(category.id)}
+                    onClick={() => category.status === "available" && navigate(category.path)}
                     className="w-full"
                     size="lg"
                     disabled={category.status === "coming-soon"}

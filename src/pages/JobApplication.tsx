@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { JOB_LISTINGS } from "@/data/jobs";
 import { saveJobApplication } from "@/utils/storage";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,14 +9,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, CheckCircle2, Upload } from "lucide-react";
 
-interface JobApplicationProps {
-  jobId: string;
-  onBack: () => void;
-  onSubmit: () => void;
-}
-
-export const JobApplication = ({ jobId, onBack, onSubmit }: JobApplicationProps) => {
-  const job = JOB_LISTINGS.find(j => j.id === jobId);
+export const JobApplication = () => {
+  const { jobId } = useParams<{ jobId: string }>();
+  const navigate = useNavigate();
+  const job = JOB_LISTINGS.find(j => j.id === jobId!);
   
   const [formData, setFormData] = useState({
     name: "",
@@ -53,7 +50,7 @@ export const JobApplication = ({ jobId, onBack, onSubmit }: JobApplicationProps)
       return;
     }
 
-    saveJobApplication(jobId, formData);
+    saveJobApplication(jobId!, formData);
     setSubmitted(true);
   };
 
@@ -62,7 +59,7 @@ export const JobApplication = ({ jobId, onBack, onSubmit }: JobApplicationProps)
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="p-8">
           <p className="text-muted-foreground">Job not found</p>
-          <Button onClick={onBack} className="mt-4">Back to Listings</Button>
+          <Button onClick={() => navigate("/jobs")} className="mt-4">Back to Listings</Button>
         </Card>
       </div>
     );
@@ -87,7 +84,7 @@ export const JobApplication = ({ jobId, onBack, onSubmit }: JobApplicationProps)
               Our team will reach out to you via email within 5-7 business days if your 
               qualifications match our requirements.
             </p>
-            <Button onClick={onSubmit} className="w-full">
+            <Button onClick={() => navigate("/")} className="w-full">
               Back to Home
             </Button>
           </CardContent>
@@ -101,7 +98,7 @@ export const JobApplication = ({ jobId, onBack, onSubmit }: JobApplicationProps)
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-6">
-          <Button variant="ghost" onClick={onBack} className="mb-4">
+          <Button variant="ghost" onClick={() => navigate(`/jobs/${jobId}`)} className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back
           </Button>

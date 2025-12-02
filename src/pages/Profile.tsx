@@ -1,21 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserProfile } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, User, Award, BookOpen, TrendingUp, LogOut, Edit2, Save } from "lucide-react";
-import { saveUserProfile, clearUserProfile, calculateTotalXP, getTotalCompletedSections, getAverageQuizScore } from "@/utils/storage";
+import { saveUserProfile, clearUserProfile, calculateTotalXP, getTotalCompletedSections, getAverageQuizScore, getUserProfile } from "@/utils/storage";
 import { MODULES } from "@/data/constants";
 
-interface ProfileProps {
-  user: UserProfile;
-  onBack: () => void;
-  onLogout: () => void;
-  onUpdateProfile: (profile: UserProfile) => void;
-}
-
-export const Profile = ({ user, onBack, onLogout, onUpdateProfile }: ProfileProps) => {
+export const Profile = () => {
+  const navigate = useNavigate();
+  const user = getUserProfile()!;
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(user.name);
   const [role, setRole] = useState(user.role);
@@ -32,21 +28,20 @@ export const Profile = ({ user, onBack, onLogout, onUpdateProfile }: ProfileProp
   const handleSave = () => {
     const updated: UserProfile = { name, role };
     saveUserProfile(updated);
-    onUpdateProfile(updated);
     setIsEditing(false);
   };
 
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout? Your progress is saved and will be available when you log back in.")) {
       clearUserProfile();
-      onLogout();
+      navigate("/masterclass/login");
     }
   };
 
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <Button onClick={onBack} variant="ghost" className="mb-6">
+        <Button onClick={() => navigate("/masterclass/dashboard")} variant="ghost" className="mb-6">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Dashboard
         </Button>

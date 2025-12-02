@@ -1,18 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ModuleCard } from "@/components/ModuleCard";
 import { MODULES } from "@/data/constants";
-import { UserProfile } from "@/types";
-import { calculateTotalXP, getOverallProgress } from "@/utils/storage";
+import { calculateTotalXP, getOverallProgress, getUserProfile } from "@/utils/storage";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search, Award, BookOpen, Clock } from "lucide-react";
 
-interface DashboardProps {
-  user: UserProfile;
-  onSelectModule: (moduleId: string) => void;
-}
-
-export const Dashboard = ({ user, onSelectModule }: DashboardProps) => {
+export const Dashboard = () => {
+  const navigate = useNavigate();
+  const user = getUserProfile();
   const [searchQuery, setSearchQuery] = useState("");
 
   const totalSections = MODULES.reduce((sum, m) => sum + m.sections.length, 0);
@@ -30,10 +27,10 @@ export const Dashboard = ({ user, onSelectModule }: DashboardProps) => {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-foreground mb-2">
-          Welcome back, {user.name}! 👋
+          Welcome back, {user?.name || 'Guest'}! 👋
         </h1>
         <p className="text-lg text-muted-foreground">
-          {user.role} • Continue your Client Service training journey
+          {user?.role || 'Student'} • Continue your Client Service training journey
         </p>
       </div>
 
@@ -103,7 +100,7 @@ export const Dashboard = ({ user, onSelectModule }: DashboardProps) => {
             <ModuleCard
               key={module.id}
               module={module}
-              onStart={() => onSelectModule(module.id)}
+              onStart={() => navigate(`/masterclass/module/${module.id}`)}
             />
           ))}
         </div>

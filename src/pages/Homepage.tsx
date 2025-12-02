@@ -1,16 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { Briefcase, GraduationCap, ClipboardCheck, Building2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Pathway } from "@/types";
 
-interface HomepageProps {
-  onSelectPathway: (pathway: Pathway) => void;
-}
-
-export const Homepage = ({ onSelectPathway }: HomepageProps) => {
+export const Homepage = () => {
+  const navigate = useNavigate();
   const pathways = [
     {
-      id: "jobs" as Pathway,
+      path: "/jobs",
       title: "Apply for Jobs",
       description: "Explore open positions and submit your application to join our team",
       icon: Briefcase,
@@ -18,7 +15,7 @@ export const Homepage = ({ onSelectPathway }: HomepageProps) => {
       iconColor: "text-destructive"
     },
     {
-      id: "masterclass" as Pathway,
+      path: "/masterclass",
       title: "MasterClasses",
       description: "Comprehensive training programs for Client Service, Design, and Creative roles",
       icon: GraduationCap,
@@ -26,7 +23,7 @@ export const Homepage = ({ onSelectPathway }: HomepageProps) => {
       iconColor: "text-primary"
     },
     {
-      id: "skill-testing" as Pathway,
+      path: "/skill-testing",
       title: "Skill Testing",
       description: "Assessments and learning modules for new hires to validate core competencies",
       icon: ClipboardCheck,
@@ -34,7 +31,7 @@ export const Homepage = ({ onSelectPathway }: HomepageProps) => {
       iconColor: "text-warning"
     },
     {
-      id: "company" as Pathway,
+      path: "/company",
       title: "Get to Know the Company",
       description: "Learn about our culture, values, team, and what makes us unique",
       icon: Building2,
@@ -73,11 +70,11 @@ export const Homepage = ({ onSelectPathway }: HomepageProps) => {
 
         {/* Pathway Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {pathways.map((pathway) => {
+        {pathways.map((pathway) => {
             const Icon = pathway.icon;
             return (
               <Card 
-                key={pathway.id}
+                key={pathway.path}
                 className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
               >
                 <CardContent className="p-8">
@@ -94,7 +91,7 @@ export const Homepage = ({ onSelectPathway }: HomepageProps) => {
                   </p>
                   
                   <Button 
-                    onClick={() => onSelectPathway(pathway.id)}
+                    onClick={() => navigate(pathway.path)}
                     className="w-full"
                     size="lg"
                   >
