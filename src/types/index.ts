@@ -45,3 +45,44 @@ export interface LeaderboardEntry {
   modulesCompleted: number;
   avatar?: string;
 }
+
+// Pathway types
+export type Pathway = "jobs" | "masterclass" | "skill-testing" | "company" | null;
+export type MasterClassCategory = "cs" | "design" | "creative" | null;
+
+// Job Application types
+export interface JobListing {
+  id: string;
+  title: string;
+  department: string;
+  location: string;
+  type: "Full-time" | "Part-time" | "Contract";
+  description: string;
+  requirements: string[];
+  responsibilities: string[];
+  postedDate: string;
+}
+
+export interface JobApplication {
+  id: string;
+  jobId: string;
+  name: string;
+  email: string;
+  phone: string;
+  linkedin?: string;
+  coverLetter: string;
+  resumeData?: string;
+  submittedAt: number;
+}
+
+// Skill Testing types
+export interface SkillAssessment {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  type: "assessment" | "lesson";
+  timeLimit?: number; // minutes
+  passingScore?: number; // percentage
+  quiz: QuizQuestion[];
+}

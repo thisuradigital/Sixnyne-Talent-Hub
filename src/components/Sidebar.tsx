@@ -4,9 +4,10 @@ import { cn } from "@/lib/utils";
 interface SidebarProps {
   currentView: string;
   onNavigate: (view: string) => void;
+  onBackToHome?: () => void;
 }
 
-export const Sidebar = ({ currentView, onNavigate }: SidebarProps) => {
+export const Sidebar = ({ currentView, onNavigate, onBackToHome }: SidebarProps) => {
   const navItems = [
     { id: "dashboard", label: "Dashboard", icon: Home },
     { id: "leaderboard", label: "Leaderboard", icon: Trophy },
@@ -32,6 +33,15 @@ export const Sidebar = ({ currentView, onNavigate }: SidebarProps) => {
 
         {/* Navigation */}
         <nav className="flex-1 px-4 py-6 space-y-1">
+          {onBackToHome && (
+            <button
+              onClick={onBackToHome}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-left text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground mb-4 border border-sidebar-border"
+            >
+              <Home className="h-5 w-5 flex-shrink-0" />
+              <span>Back to Home</span>
+            </button>
+          )}
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = currentView === item.id;

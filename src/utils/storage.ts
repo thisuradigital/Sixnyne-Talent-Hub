@@ -1,9 +1,11 @@
-import { UserProfile, CompletedSection, QuizScore } from "@/types";
+import { UserProfile, CompletedSection, QuizScore, JobApplication } from "@/types";
 
 const STORAGE_KEYS = {
   USER_PROFILE: 'csm_user_profile',
   COMPLETED_SECTIONS: 'csm_completed_sections',
-  QUIZ_SCORES: 'csm_quiz_scores'
+  QUIZ_SCORES: 'csm_quiz_scores',
+  JOB_APPLICATIONS: 'hiring_job_applications',
+  SKILL_TESTING_SCORES: 'skill_testing_scores'
 };
 
 // User Profile
@@ -116,4 +118,26 @@ export const calculateTotalXP = (): number => {
 export const getOverallProgress = (totalSections: number): number => {
   const completed = getTotalCompletedSections();
   return Math.round((completed / totalSections) * 100);
+};
+
+// Job Applications
+export const saveJobApplication = (jobId: string, formData: Omit<JobApplication, 'id' | 'jobId' | 'submittedAt'>): void => {
+  const applications = getJobApplications();
+  const newApplication: JobApplication = {
+    id: `app_${Date.now()}`,
+    jobId,
+    ...formData,
+    submittedAt: Date.now()
+  };
+  applications.push(newApplication);
+  localStorage.setItem(STORAGE_KEYS.JOB_APPLICATIONS, JSON.stringify(applications));
+};
+
+export const getJobApplications = (): JobApplication[] => {
+  const data = localStorage.getItem(STORAGE_KEYS.JOB_APPLICATIONS);
+  return data ? JSON.parse(data) : [];
+};
+
+export const getJobApplicationsByJobId = (jobId: string): JobApplication[] => {
+  return getJobApplications().filter(app => app.jobId === jobId);
 };
