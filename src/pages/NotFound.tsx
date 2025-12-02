@@ -1,16 +1,10 @@
-import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Briefcase, GraduationCap, ClipboardCheck, Building2, Home } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 const NotFound = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
 
   const quickLinks = [
     {
