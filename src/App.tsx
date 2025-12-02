@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ThemeProvider } from "next-themes";
 import { UserProfile, Pathway, MasterClassCategory } from "./types";
 import { getUserProfile } from "./utils/storage";
 import { Homepage } from "./pages/Homepage";
@@ -290,11 +287,7 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <Toaster />
-        <Sonner />
-        {renderContent()}
-      </ThemeProvider>
+      {renderContent()}
     </QueryClientProvider>
   );
 };
