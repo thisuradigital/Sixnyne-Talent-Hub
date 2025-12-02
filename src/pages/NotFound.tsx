@@ -56,13 +56,16 @@ const NotFound = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Gradient Background */}
+      <div className="fixed inset-0 bg-gradient-radial opacity-60 pointer-events-none" />
+      
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
+      <header className="border-b border-border/50 glass-effect relative z-10">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-primary">
-              <GraduationCap className="h-6 w-6 text-primary-foreground" />
+            <div className="p-2 rounded-xl bg-gradient-purple shadow-glow">
+              <GraduationCap className="h-6 w-6 text-white" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-foreground">Hiring Portal</h1>
@@ -73,10 +76,11 @@ const NotFound = () => {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12 max-w-5xl">
-        <div className="text-center mb-12">
-          <div className="inline-block mb-6">
-            <h1 className="text-8xl font-bold text-primary/20">404</h1>
+      <main className="container mx-auto px-4 py-16 max-w-5xl relative z-10">
+        <div className="text-center mb-16 animate-fade-in">
+          <div className="inline-block mb-6 relative">
+            <h1 className="text-9xl font-bold bg-gradient-purple bg-clip-text text-transparent">404</h1>
+            <div className="absolute inset-0 bg-gradient-purple blur-3xl opacity-20" />
           </div>
           <h2 className="text-4xl font-bold text-foreground mb-4">
             Page Not Found
@@ -87,25 +91,28 @@ const NotFound = () => {
         </div>
 
         {/* Quick Links */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {quickLinks.map((link) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+          {quickLinks.map((link, index) => {
             const Icon = link.icon;
             return (
               <Card 
                 key={link.path}
-                className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+                className="group hover-lift cursor-pointer border-border/50 backdrop-blur-sm bg-card/80 shadow-card animate-fade-in"
+                style={{ animationDelay: `${index * 50}ms` }}
                 onClick={() => navigate(link.path)}
               >
-                <CardContent className="p-6">
-                  <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${link.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <CardContent className="p-6 relative">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-purple-glow rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  <div className={`relative w-12 h-12 rounded-xl bg-gradient-to-br ${link.color} flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-card`}>
                     <Icon className={`h-6 w-6 ${link.iconColor}`} />
                   </div>
                   
-                  <h3 className="text-lg font-bold text-foreground mb-2">
+                  <h3 className="relative text-lg font-bold text-foreground mb-2">
                     {link.title}
                   </h3>
                   
-                  <p className="text-sm text-muted-foreground">
+                  <p className="relative text-sm text-muted-foreground">
                     {link.description}
                   </p>
                 </CardContent>
@@ -114,11 +121,11 @@ const NotFound = () => {
           })}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center animate-fade-in" style={{ animationDelay: '300ms' }}>
           <Button 
             onClick={() => navigate("/")}
             size="lg"
-            className="px-8"
+            className="px-8 bg-gradient-purple hover:shadow-glow border-0"
           >
             <Home className="h-4 w-4 mr-2" />
             Back to Homepage
