@@ -43,54 +43,60 @@ export const MasterClassHub = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Gradient Background */}
+      <div className="fixed inset-0 bg-gradient-radial opacity-60 pointer-events-none" />
+      
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
+      <header className="border-b border-border/50 glass-effect sticky top-0 z-10 relative">
         <div className="container mx-auto px-4 py-6">
           <Button variant="ghost" onClick={() => navigate("/")} className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Button>
-          <h1 className="text-3xl font-bold text-foreground">MasterClass Programs</h1>
+          <h1 className="text-3xl font-bold bg-gradient-purple bg-clip-text text-transparent">MasterClass Programs</h1>
           <p className="text-muted-foreground mt-2">Choose your learning path</p>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-12 max-w-6xl">
+      <div className="container mx-auto px-4 py-12 max-w-6xl relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((category) => {
+          {categories.map((category, index) => {
             const Icon = category.icon;
             return (
               <Card 
                 key={category.id}
-                className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 relative overflow-hidden"
+                className="group hover-lift relative overflow-hidden border-border/50 backdrop-blur-sm bg-card/80 shadow-card animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
-                <CardContent className="p-8">
+                <CardContent className="p-8 relative">
                   {category.status === "coming-soon" && (
-                    <Badge className="absolute top-4 right-4" variant="secondary">
+                    <Badge className="absolute top-4 right-4 bg-gradient-purple-soft border-primary/20" variant="secondary">
                       Coming Soon
                     </Badge>
                   )}
 
-                  <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-purple-glow rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <div className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-card`}>
                     <Icon className={`h-8 w-8 ${category.iconColor}`} />
                   </div>
                   
-                  <h3 className="text-2xl font-bold text-foreground mb-3">
+                  <h3 className="relative text-2xl font-bold text-foreground mb-3">
                     {category.title}
                   </h3>
                   
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
+                  <p className="relative text-muted-foreground mb-4 leading-relaxed">
                     {category.description}
                   </p>
 
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-                    <Badge variant="outline">{category.modules} Modules</Badge>
+                  <div className="relative flex items-center gap-2 text-sm text-muted-foreground mb-6">
+                    <Badge variant="outline" className="border-primary/30">{category.modules} Modules</Badge>
                   </div>
                   
                   <Button 
                     onClick={() => category.status === "available" && navigate(category.path)}
-                    className="w-full"
+                    className="relative w-full"
                     size="lg"
                     disabled={category.status === "coming-soon"}
                   >
@@ -103,9 +109,9 @@ export const MasterClassHub = () => {
         </div>
 
         {/* Info Section */}
-        <Card className="mt-12 bg-muted/50">
+        <Card className="mt-12 glass-effect shadow-elevated animate-fade-in" style={{ animationDelay: '300ms' }}>
           <CardContent className="p-8">
-            <h3 className="text-xl font-semibold mb-4">What is a MasterClass?</h3>
+            <h3 className="text-xl font-semibold mb-4 text-foreground">What is a MasterClass?</h3>
             <p className="text-muted-foreground leading-relaxed mb-4">
               Our MasterClass programs are comprehensive training experiences designed to transform 
               your professional skills. Each MasterClass contains multiple modules with detailed lessons, 
