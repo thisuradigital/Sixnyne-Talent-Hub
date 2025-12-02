@@ -1,16 +1,13 @@
-import { UserProfile } from "@/types";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Trophy, Medal, Award } from "lucide-react";
 import { MOCK_LEADERBOARD, MODULES } from "@/data/constants";
-import { calculateTotalXP, getTotalCompletedSections } from "@/utils/storage";
+import { calculateTotalXP, getTotalCompletedSections, getUserProfile } from "@/utils/storage";
 
-interface LeaderboardProps {
-  user: UserProfile;
-  onBack: () => void;
-}
-
-export const Leaderboard = ({ user, onBack }: LeaderboardProps) => {
+export const Leaderboard = () => {
+  const navigate = useNavigate();
+  const user = getUserProfile()!;
   const userXP = calculateTotalXP();
   const completedSections = getTotalCompletedSections();
   const totalSections = MODULES.reduce((sum, m) => sum + m.sections.length, 0);
@@ -42,7 +39,7 @@ export const Leaderboard = ({ user, onBack }: LeaderboardProps) => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <Button onClick={onBack} variant="ghost" className="mb-6">
+        <Button onClick={() => navigate("/masterclass/dashboard")} variant="ghost" className="mb-6">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Dashboard
         </Button>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { JOB_LISTINGS } from "@/data/jobs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,12 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Search, MapPin, Briefcase, Calendar, ArrowLeft } from "lucide-react";
 
-interface JobListingsProps {
-  onSelectJob: (jobId: string) => void;
-  onBack: () => void;
-}
-
-export const JobListings = ({ onSelectJob, onBack }: JobListingsProps) => {
+export const JobListings = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
 
@@ -32,7 +29,7 @@ export const JobListings = ({ onSelectJob, onBack }: JobListingsProps) => {
         <div className="container mx-auto px-4 py-6">
           <Button
             variant="ghost"
-            onClick={onBack}
+            onClick={() => navigate("/")}
             className="mb-4"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
@@ -107,7 +104,7 @@ export const JobListings = ({ onSelectJob, onBack }: JobListingsProps) => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">{job.description}</p>
-                <Button onClick={() => onSelectJob(job.id)}>
+                <Button onClick={() => navigate(`/jobs/${job.id}`)}>
                   View Details & Apply
                 </Button>
               </CardContent>

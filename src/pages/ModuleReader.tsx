@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Module } from "@/types";
+import { useParams, useNavigate } from "react-router-dom";
 import { MODULES } from "@/data/constants";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -23,14 +23,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-interface ModuleReaderProps {
-  moduleId: string;
-  onBack: () => void;
-  onStartQuiz: (moduleId: string) => void;
-}
-
-export const ModuleReader = ({ moduleId, onBack, onStartQuiz }: ModuleReaderProps) => {
-  const module = MODULES.find(m => m.id === moduleId);
+export const ModuleReader = () => {
+  const { moduleId } = useParams<{ moduleId: string }>();
+  const navigate = useNavigate();
+  const module = MODULES.find(m => m.id === moduleId!);
   const [currentSection, setCurrentSection] = useState(0);
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
@@ -42,7 +38,7 @@ export const ModuleReader = ({ moduleId, onBack, onStartQuiz }: ModuleReaderProp
   if (!module) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Button onClick={onBack} variant="ghost">
+        <Button onClick={() => navigate("/masterclass/dashboard")} variant="ghost">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Dashboard
         </Button>
@@ -52,15 +48,15 @@ export const ModuleReader = ({ moduleId, onBack, onStartQuiz }: ModuleReaderProp
   }
 
   const section = module.sections[currentSection];
-  const isCompleted = isSectionCompleted(moduleId, currentSection);
-  const progress = getModuleCompletionPercentage(moduleId, module.sections.length);
+  const isCompleted = isSectionCompleted(moduleId!, currentSection);
+  const progress = getModuleCompletionPercentage(moduleId!, module.sections.length);
 
   const handleToggleComplete = () => {
     if (isCompleted) {
-      removeCompletedSection(moduleId, currentSection);
+      removeCompletedSection(moduleId!, currentSection);
       setToast({ message: "Section marked as incomplete", type: "error" });
     } else {
-      saveCompletedSection(moduleId, currentSection);
+      saveCompletedSection(moduleId!, currentSection);
       setToast({ message: "Section completed! +50 XP", type: "success" });
     }
   };
@@ -91,11 +87,11 @@ export const ModuleReader = ({ moduleId, onBack, onStartQuiz }: ModuleReaderProp
       <div className="border-b bg-card">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
-            <Button onClick={onBack} variant="ghost" size="sm">
+            <Button onClick={() => navigate("/masterclass/dashboard")} variant="ghost" size="sm">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </Button>
-            <Button onClick={() => onStartQuiz(moduleId)} variant="outline" size="sm">
+            <Button onClick={() => navigate(`/masterclass/quiz/${moduleId}`)} variant="outline" size="sm">
               Take Quiz
             </Button>
           </div>
@@ -128,7 +124,7 @@ export const ModuleReader = ({ moduleId, onBack, onStartQuiz }: ModuleReaderProp
                           : "hover:bg-muted"
                       }`}
                     >
-                      {isSectionCompleted(moduleId, idx) ? (
+                       {isSectionCompleted(moduleId!, idx) ? (
                         <CheckCircle2 className="h-4 w-4 text-accent flex-shrink-0" />
                       ) : (
                         <Circle className="h-4 w-4 flex-shrink-0" />
@@ -154,7 +150,7 @@ export const ModuleReader = ({ moduleId, onBack, onStartQuiz }: ModuleReaderProp
                 {module.sections.map((sec, idx) => (
                   <SelectItem key={idx} value={idx.toString()}>
                     <div className="flex items-center gap-2">
-                      {isSectionCompleted(moduleId, idx) ? (
+                      {isSectionCompleted(moduleId!, idx) ? (
                         <CheckCircle2 className="h-4 w-4 text-accent" />
                       ) : (
                         <Circle className="h-4 w-4" />
@@ -265,7 +261,7 @@ export const ModuleReader = ({ moduleId, onBack, onStartQuiz }: ModuleReaderProp
               </Button>
 
               {currentSection === module.sections.length - 1 ? (
-                <Button onClick={() => onStartQuiz(moduleId)} size="lg">
+                <Button onClick={() => navigate(`/masterclass/quiz/${moduleId}`)} size="lg">
                   Take Quiz
                 </Button>
               ) : (

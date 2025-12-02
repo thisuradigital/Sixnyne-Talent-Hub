@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -7,12 +8,8 @@ import { getQuizScore } from "@/utils/storage";
 import { ArrowLeft, Clock, CheckCircle2, BookOpen, Brain } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 
-interface SkillTestingDashboardProps {
-  onSelectAssessment: (assessmentId: string) => void;
-  onBack: () => void;
-}
-
-export const SkillTestingDashboard = ({ onSelectAssessment, onBack }: SkillTestingDashboardProps) => {
+export const SkillTestingDashboard = () => {
+  const navigate = useNavigate();
   const completedAssessments = SKILL_ASSESSMENTS.filter(assessment => {
     const score = getQuizScore(assessment.id);
     return score && assessment.passingScore ? 
@@ -38,7 +35,7 @@ export const SkillTestingDashboard = ({ onSelectAssessment, onBack }: SkillTesti
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-6">
-          <Button variant="ghost" onClick={onBack} className="mb-4">
+          <Button variant="ghost" onClick={() => navigate("/")} className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Button>
@@ -122,7 +119,7 @@ export const SkillTestingDashboard = ({ onSelectAssessment, onBack }: SkillTesti
                     )}
 
                     <Button 
-                      onClick={() => onSelectAssessment(assessment.id)} 
+                      onClick={() => navigate(`/skill-testing/quiz/${assessment.id}`)} 
                       className="w-full"
                       variant={status.status === "passed" ? "outline" : "default"}
                     >
@@ -166,7 +163,6 @@ export const SkillTestingDashboard = ({ onSelectAssessment, onBack }: SkillTesti
                     </p>
                     <Badge variant="secondary" className="mb-4">Coming Soon</Badge>
                     <Button 
-                      onClick={() => onSelectAssessment(lesson.id)} 
                       className="w-full"
                       disabled
                       variant="outline"

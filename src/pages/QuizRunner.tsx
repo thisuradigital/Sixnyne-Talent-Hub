@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { MODULES } from "@/data/constants";
 import { SKILL_ASSESSMENTS } from "@/data/skillTestingConstants";
 import { QuizQuestion } from "@/types";
@@ -6,16 +7,21 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, CheckCircle2, XCircle, RotateCcw } from "lucide-react";
-import { saveQuizScore } from "@/utils/storage";
+import { saveQuizScore, getUserProfile } from "@/utils/storage";
 import { Certificate } from "@/components/Certificate";
 
 interface QuizRunnerProps {
-  moduleId: string;
-  onBack: () => void;
   isComprehensive?: boolean;
+  moduleId?: string;
 }
 
-export const QuizRunner = ({ moduleId, onBack, isComprehensive = false }: QuizRunnerProps) => {
+export const QuizRunner = ({ isComprehensive: isComprehensiveProp = false, moduleId: moduleIdProp }: QuizRunnerProps) => {
+  const { moduleId: paramModuleId, assessmentId } = useParams<{ moduleId?: string; assessmentId?: string }>();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const moduleId = moduleIdProp || paramModuleId || assessmentId || "comprehensive";
+  const isComprehensive = isComprehensiveProp || location.pathname.includes("/exam");
+  const user = getUserProfile();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -72,10 +78,20 @@ export const QuizRunner = ({ moduleId, onBack, isComprehensive = false }: QuizRu
     setQuizComplete(false);
   };
 
+  const handleBack = () => {
+    if (location.pathname.includes("skill-testing")) {
+      navigate("/skill-testing");
+    } else if (isComprehensive) {
+      navigate("/masterclass/dashboard");
+    } else {
+      navigate(`/masterclass/module/${moduleId}`);
+    }
+  };
+
   if (!currentQuestion) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Button onClick={onBack} variant="ghost">
+        <Button onClick={handleBack} variant="ghost">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
         </Button>
@@ -124,7 +140,7 @@ export const QuizRunner = ({ moduleId, onBack, isComprehensive = false }: QuizRu
               {passed && (
                 <div className="mb-6">
                   <Certificate
-                    userName={JSON.parse(localStorage.getItem('csm_user_profile') || '{}').name || 'Student'}
+                    userName={user?.name || 'Student'}
                     moduleName={isComprehensive ? "Client Service MasterClass" : title}
                     date={new Date().toLocaleDateString()}
                     score={percentage}
@@ -138,7 +154,7 @@ export const QuizRunner = ({ moduleId, onBack, isComprehensive = false }: QuizRu
                   <RotateCcw className="mr-2 h-4 w-4" />
                   Try Again
                 </Button>
-                <Button onClick={onBack}>
+                <Button onClick={handleBack}>
                   Back to {isComprehensive ? "Dashboard" : "Module"}
                 </Button>
               </div>
@@ -155,7 +171,7 @@ export const QuizRunner = ({ moduleId, onBack, isComprehensive = false }: QuizRu
       <div className="border-b bg-card">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
-            <Button onClick={onBack} variant="ghost" size="sm">
+            <Button onClick={handleBack} variant="ghost" size="sm">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Exit Quiz
             </Button>
