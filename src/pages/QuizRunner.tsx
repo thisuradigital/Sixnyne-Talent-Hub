@@ -165,7 +165,7 @@ export const QuizRunner = ({ moduleId, onBack, isComprehensive = false }: QuizRu
           </div>
           
           <h1 className="text-2xl font-bold mb-2">
-            {isComprehensive ? "Comprehensive Exam" : `${module?.title} Quiz`}
+            {isComprehensive ? "Comprehensive Exam" : `${title} Quiz`}
           </h1>
           <div className="flex items-center gap-4">
             <Progress value={progress} className="flex-1" />
