@@ -9,12 +9,8 @@ const Toaster = (_props: ToasterProps) => {
   return null;
 };
 
-const toast = (...args: unknown[]) => {
-  // Fallback: log toast calls to the console so they are still observable during debugging.
-  if (args.length) {
-    // eslint-disable-next-line no-console
-    console.log("Toast:", ...args);
-  }
+const toast = (..._args: unknown[]) => {
+  // Stub implementation - no-op for toast calls
 };
 
 export { Toaster, toast };
