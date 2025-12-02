@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { MODULES } from "@/data/constants";
+import { SKILL_ASSESSMENTS } from "@/data/skillTestingConstants";
 import { QuizQuestion } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,11 +22,17 @@ export const QuizRunner = ({ moduleId, onBack, isComprehensive = false }: QuizRu
   const [score, setScore] = useState(0);
   const [quizComplete, setQuizComplete] = useState(false);
 
+  // Support both modules and skill assessments
+  const skillAssessment = SKILL_ASSESSMENTS.find(a => a.id === moduleId);
+  
   const questions: QuizQuestion[] = isComprehensive
-    ? MODULES.flatMap(m => m.quiz).slice(0, 20) // 20 questions for comprehensive
-    : MODULES.find(m => m.id === moduleId)?.quiz || [];
+    ? MODULES.flatMap(m => m.quiz).slice(0, 20)
+    : skillAssessment 
+      ? skillAssessment.quiz 
+      : MODULES.find(m => m.id === moduleId)?.quiz || [];
 
   const module = MODULES.find(m => m.id === moduleId);
+  const title = skillAssessment?.title || module?.title || "Quiz";
   const currentQuestion = questions[currentQuestionIndex];
 
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
@@ -114,11 +121,11 @@ export const QuizRunner = ({ moduleId, onBack, isComprehensive = false }: QuizRu
                 )}
               </div>
 
-              {passed && module && (
+              {passed && (
                 <div className="mb-6">
                   <Certificate
                     userName={JSON.parse(localStorage.getItem('csm_user_profile') || '{}').name || 'Student'}
-                    moduleName={isComprehensive ? "Client Service MasterClass" : module.title}
+                    moduleName={isComprehensive ? "Client Service MasterClass" : title}
                     date={new Date().toLocaleDateString()}
                     score={percentage}
                     isGold={isComprehensive}
