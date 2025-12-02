@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, CheckCircle2, Upload } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 
 interface JobApplicationProps {
   jobId: string;
@@ -16,7 +15,6 @@ interface JobApplicationProps {
 }
 
 export const JobApplication = ({ jobId, onBack, onSubmit }: JobApplicationProps) => {
-  const { toast } = useToast();
   const job = JOB_LISTINGS.find(j => j.id === jobId);
   
   const [formData, setFormData] = useState({
@@ -50,21 +48,13 @@ export const JobApplication = ({ jobId, onBack, onSubmit }: JobApplicationProps)
     e.preventDefault();
     
     if (!validateForm()) {
-      toast({
-        title: "Validation Error",
-        description: "Please fill in all required fields",
-        variant: "destructive"
-      });
+      // Basic validation feedback
+      alert("Please fill in all required fields before submitting.");
       return;
     }
 
     saveJobApplication(jobId, formData);
     setSubmitted(true);
-    
-    toast({
-      title: "Application Submitted!",
-      description: "We'll review your application and get back to you soon.",
-    });
   };
 
   if (!job) {
