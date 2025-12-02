@@ -75,7 +75,7 @@ export const SkillTestingDashboard = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SKILL_ASSESSMENTS.map((assessment) => {
-              const IconComponent = (LucideIcons as any)[assessment.icon] || Brain;
+              const IconComponent = (LucideIcons as Record<string, React.ComponentType<{ className?: string }>>)[assessment.icon] || Brain;
               const status = getAssessmentStatus(assessment.id, assessment.passingScore);
               const score = getQuizScore(assessment.id);
 
@@ -147,7 +147,7 @@ export const SkillTestingDashboard = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SKILL_LESSONS.map((lesson) => {
-              const IconComponent = (LucideIcons as any)[lesson.icon] || BookOpen;
+              const IconComponent = (LucideIcons as Record<string, React.ComponentType<{ className?: string }>>)[lesson.icon] || BookOpen;
 
               return (
                 <Card key={lesson.id} className="hover:shadow-lg transition-shadow">

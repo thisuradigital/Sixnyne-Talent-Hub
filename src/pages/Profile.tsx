@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, Award, BookOpen, TrendingUp, LogOut, Edit2, Save } from "lucide-react";
-import { saveUserProfile, clearUserProfile, calculateTotalXP, getTotalCompletedSections, getAverageQuizScore, getUserProfile } from "@/utils/storage";
+import { saveUserProfile, clearUserProfile, calculateTotalXP, getTotalCompletedSections, getAverageQuizScore, getUserProfile, getModuleCompletionPercentage } from "@/utils/storage";
 import { MODULES } from "@/data/constants";
 
 export const Profile = () => {
@@ -21,8 +21,8 @@ export const Profile = () => {
   const totalSections = MODULES.reduce((sum, m) => sum + m.sections.length, 0);
   const averageQuizScore = getAverageQuizScore();
   const modulesCompleted = MODULES.filter(m => {
-    const progress = (completedSections / totalSections) * 100;
-    return progress === 100;
+    const moduleProgress = getModuleCompletionPercentage(m.id, m.sections.length);
+    return moduleProgress === 100;
   }).length;
 
   const handleSave = () => {
