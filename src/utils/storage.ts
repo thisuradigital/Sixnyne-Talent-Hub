@@ -14,8 +14,13 @@ export const saveUserProfile = (profile: UserProfile): void => {
 };
 
 export const getUserProfile = (): UserProfile | null => {
-  const data = localStorage.getItem(STORAGE_KEYS.USER_PROFILE);
-  return data ? JSON.parse(data) : null;
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.USER_PROFILE);
+    return data ? JSON.parse(data) : null;
+  } catch (error) {
+    console.error('Error parsing user profile from localStorage:', error);
+    return null;
+  }
 };
 
 export const clearUserProfile = (): void => {
@@ -24,8 +29,13 @@ export const clearUserProfile = (): void => {
 
 // Completed Sections
 export const getCompletedSections = (): CompletedSection[] => {
-  const data = localStorage.getItem(STORAGE_KEYS.COMPLETED_SECTIONS);
-  return data ? JSON.parse(data) : [];
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.COMPLETED_SECTIONS);
+    return data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.error('Error parsing completed sections from localStorage:', error);
+    return [];
+  }
 };
 
 export const saveCompletedSection = (moduleId: string, sectionIndex: number): void => {
@@ -63,8 +73,13 @@ export const getTotalCompletedSections = (): number => {
 
 // Quiz Scores
 export const getQuizScores = (): QuizScore[] => {
-  const data = localStorage.getItem(STORAGE_KEYS.QUIZ_SCORES);
-  return data ? JSON.parse(data) : [];
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.QUIZ_SCORES);
+    return data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.error('Error parsing quiz scores from localStorage:', error);
+    return [];
+  }
 };
 
 export const saveQuizScore = (moduleId: string, score: number, totalQuestions: number): void => {
@@ -122,8 +137,13 @@ export const getOverallProgress = (totalSections: number): number => {
 
 // Job Applications - Get functions defined first
 export const getJobApplications = (): JobApplication[] => {
-  const data = localStorage.getItem(STORAGE_KEYS.JOB_APPLICATIONS);
-  return data ? JSON.parse(data) : [];
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.JOB_APPLICATIONS);
+    return data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.error('Error parsing job applications from localStorage:', error);
+    return [];
+  }
 };
 
 export const getJobApplicationsByJobId = (jobId: string): JobApplication[] => {

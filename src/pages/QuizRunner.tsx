@@ -64,8 +64,9 @@ export const QuizRunner = ({ isComprehensive: isComprehensiveProp = false, modul
       setSelectedAnswer(null);
       setShowFeedback(false);
     } else {
-      // Quiz complete
-      saveQuizScore(moduleId, score + (selectedAnswer === currentQuestion.correctIndex ? 1 : 0), questions.length);
+      // Quiz complete - score already includes the last question from handleSubmitAnswer
+      const finalScore = score + (selectedAnswer === currentQuestion.correctIndex ? 1 : 0);
+      saveQuizScore(moduleId, finalScore, questions.length);
       setQuizComplete(true);
     }
   };

@@ -12,9 +12,9 @@ interface ModuleCardProps {
 
 export const ModuleCard = ({ module, onStart }: ModuleCardProps) => {
   const progress = getModuleCompletionPercentage(module.id, module.sections.length);
-  
+
   // Get the icon component dynamically
-  const IconComponent = (Icons as any)[module.icon] || Icons.Book;
+  const IconComponent = (Icons as Record<string, React.ComponentType<{ className?: string }>>)[module.icon] || Icons.Book;
 
   const getButtonText = () => {
     if (progress === 0) return "Start";
