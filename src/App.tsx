@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Homepage } from "./pages/Homepage";
 import { JobListings } from "./pages/JobListings";
@@ -14,7 +14,7 @@ import { QuizRunner } from "./pages/QuizRunner";
 import { Profile } from "./pages/Profile";
 import { Leaderboard } from "./pages/Leaderboard";
 import { MasterClassLayout } from "./components/MasterClassLayout";
-import { getUserProfile } from "./utils/storage";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,17 +40,49 @@ const App = () => {
           <Route path="/masterclass/login" element={<Login />} />
           
           {/* MasterClass Protected Routes */}
-          <Route path="/masterclass/dashboard" element={<MasterClassLayout><Dashboard /></MasterClassLayout>} />
-          <Route path="/masterclass/module/:moduleId" element={<MasterClassLayout hideNav><ModuleReader /></MasterClassLayout>} />
-          <Route path="/masterclass/quiz/:moduleId" element={<MasterClassLayout hideNav><QuizRunner isComprehensive={false} /></MasterClassLayout>} />
-          <Route path="/masterclass/exam" element={<MasterClassLayout><QuizRunner isComprehensive={true} moduleId="comprehensive" /></MasterClassLayout>} />
-          <Route path="/masterclass/profile" element={<MasterClassLayout><Profile /></MasterClassLayout>} />
-          <Route path="/masterclass/leaderboard" element={<MasterClassLayout><Leaderboard /></MasterClassLayout>} />
+          <Route path="/masterclass/dashboard" element={
+            <ProtectedRoute redirectTo="/masterclass/login">
+              <MasterClassLayout><Dashboard /></MasterClassLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/masterclass/module/:moduleId" element={
+            <ProtectedRoute redirectTo="/masterclass/login">
+              <MasterClassLayout hideNav><ModuleReader /></MasterClassLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/masterclass/quiz/:moduleId" element={
+            <ProtectedRoute redirectTo="/masterclass/login">
+              <MasterClassLayout hideNav><QuizRunner isComprehensive={false} /></MasterClassLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/masterclass/exam" element={
+            <ProtectedRoute redirectTo="/masterclass/login">
+              <MasterClassLayout><QuizRunner isComprehensive={true} moduleId="comprehensive" /></MasterClassLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/masterclass/profile" element={
+            <ProtectedRoute redirectTo="/masterclass/login">
+              <MasterClassLayout><Profile /></MasterClassLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/masterclass/leaderboard" element={
+            <ProtectedRoute redirectTo="/masterclass/login">
+              <MasterClassLayout><Leaderboard /></MasterClassLayout>
+            </ProtectedRoute>
+          } />
 
           {/* Skill Testing Pathway */}
-          <Route path="/skill-testing" element={getUserProfile() ? <SkillTestingDashboard /> : <Navigate to="/skill-testing/login" replace />} />
+          <Route path="/skill-testing" element={
+            <ProtectedRoute redirectTo="/skill-testing/login">
+              <SkillTestingDashboard />
+            </ProtectedRoute>
+          } />
           <Route path="/skill-testing/login" element={<Login />} />
-          <Route path="/skill-testing/quiz/:assessmentId" element={<QuizRunner isComprehensive={false} />} />
+          <Route path="/skill-testing/quiz/:assessmentId" element={
+            <ProtectedRoute redirectTo="/skill-testing/login">
+              <QuizRunner isComprehensive={false} />
+            </ProtectedRoute>
+          } />
 
           {/* Fallback */}
           <Route path="*" element={<NotFound />} />

@@ -1,8 +1,7 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { MobileNav } from "./MobileNav";
-import { getUserProfile } from "@/utils/storage";
 
 interface MasterClassLayoutProps {
   children: ReactNode;
@@ -12,14 +11,6 @@ interface MasterClassLayoutProps {
 export const MasterClassLayout = ({ children, hideNav = false }: MasterClassLayoutProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  
-  // Check authentication
-  useEffect(() => {
-    const profile = getUserProfile();
-    if (!profile) {
-      navigate("/masterclass/login");
-    }
-  }, [navigate]);
 
   const currentView = location.pathname.includes("/exam") ? "comprehensive" :
                      location.pathname.includes("/profile") ? "profile" :
