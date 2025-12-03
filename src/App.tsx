@@ -14,6 +14,7 @@ import { QuizRunner } from "./pages/QuizRunner";
 import { Profile } from "./pages/Profile";
 import { Leaderboard } from "./pages/Leaderboard";
 import { MasterClassLayout } from "./components/MasterClassLayout";
+import { AppLayout } from "./components/AppLayout";
 import { getUserProfile } from "./utils/storage";
 import NotFound from "./pages/NotFound";
 
@@ -25,20 +26,23 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           {/* Homepage */}
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<AppLayout><Homepage /></AppLayout>} />
 
           {/* Job Application Pathway */}
-          <Route path="/jobs" element={<JobListings />} />
-          <Route path="/jobs/:jobId" element={<JobDetails />} />
-          <Route path="/jobs/:jobId/apply" element={<JobApplication />} />
+          <Route path="/jobs" element={<AppLayout><JobListings /></AppLayout>} />
+          <Route path="/jobs/:jobId" element={<AppLayout><JobDetails /></AppLayout>} />
+          <Route path="/jobs/:jobId/apply" element={<AppLayout><JobApplication /></AppLayout>} />
 
           {/* Company Info */}
-          <Route path="/company" element={<CompanyInfo />} />
+          <Route path="/company" element={<AppLayout><CompanyInfo /></AppLayout>} />
+
+          {/* Profile - Platform-wide */}
+          <Route path="/profile" element={<AppLayout requireAuth><Profile /></AppLayout>} />
 
           {/* MasterClass Pathway */}
-          <Route path="/masterclass" element={<MasterClassHub />} />
+          <Route path="/masterclass" element={<AppLayout><MasterClassHub /></AppLayout>} />
           <Route path="/masterclass/login" element={<Login />} />
-          
+
           {/* MasterClass Protected Routes */}
           <Route path="/masterclass/dashboard" element={<MasterClassLayout><Dashboard /></MasterClassLayout>} />
           <Route path="/masterclass/module/:moduleId" element={<MasterClassLayout hideNav><ModuleReader /></MasterClassLayout>} />
@@ -48,9 +52,9 @@ const App = () => {
           <Route path="/masterclass/leaderboard" element={<MasterClassLayout><Leaderboard /></MasterClassLayout>} />
 
           {/* Skill Testing Pathway */}
-          <Route path="/skill-testing" element={getUserProfile() ? <SkillTestingDashboard /> : <Navigate to="/skill-testing/login" replace />} />
+          <Route path="/skill-testing" element={<AppLayout requireAuth redirectTo="/skill-testing/login">{getUserProfile() ? <SkillTestingDashboard /> : <Navigate to="/skill-testing/login" replace />}</AppLayout>} />
           <Route path="/skill-testing/login" element={<Login />} />
-          <Route path="/skill-testing/quiz/:assessmentId" element={<QuizRunner isComprehensive={false} />} />
+          <Route path="/skill-testing/quiz/:assessmentId" element={<AppLayout hideNav><QuizRunner isComprehensive={false} /></AppLayout>} />
 
           {/* Fallback */}
           <Route path="*" element={<NotFound />} />

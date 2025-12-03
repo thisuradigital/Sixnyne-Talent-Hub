@@ -84,8 +84,8 @@ export const JobApplication = () => {
               Our team will reach out to you via email within 5-7 business days if your 
               qualifications match our requirements.
             </p>
-            <Button onClick={() => navigate("/")} className="w-full">
-              Back to Home
+            <Button onClick={() => navigate("/jobs")} className="w-full">
+              Explore More Jobs
             </Button>
           </CardContent>
         </Card>

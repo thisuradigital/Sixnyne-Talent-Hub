@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search, MapPin, Briefcase, Calendar, ArrowLeft } from "lucide-react";
+import { Search, MapPin, Briefcase, Calendar } from "lucide-react";
 
 export const JobListings = () => {
   const navigate = useNavigate();
@@ -27,14 +27,6 @@ export const JobListings = () => {
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-6">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/")}
-            className="mb-4"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Home
-          </Button>
           <h1 className="text-3xl font-bold text-foreground">Open Positions</h1>
           <p className="text-muted-foreground mt-2">Find your next opportunity</p>
         </div>

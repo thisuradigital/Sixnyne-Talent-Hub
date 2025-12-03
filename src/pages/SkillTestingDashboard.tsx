@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { SKILL_ASSESSMENTS, SKILL_LESSONS } from "@/data/skillTestingConstants";
 import { getQuizScore } from "@/utils/storage";
-import { ArrowLeft, Clock, CheckCircle2, BookOpen, Brain } from "lucide-react";
+import { Clock, CheckCircle2, BookOpen, Brain } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 
 export const SkillTestingDashboard = () => {
@@ -35,10 +35,6 @@ export const SkillTestingDashboard = () => {
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-6">
-          <Button variant="ghost" onClick={() => navigate("/")} className="mb-4">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Home
-          </Button>
           <h1 className="text-3xl font-bold text-foreground">Skill Testing Platform</h1>
           <p className="text-muted-foreground mt-2">Validate your competencies for new hire onboarding</p>
         </div>

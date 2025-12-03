@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Users, Palette, Sparkles, ArrowLeft } from "lucide-react";
+import { Users, Palette, Sparkles } from "lucide-react";
 
 export const MasterClassHub = () => {
   const navigate = useNavigate();
@@ -50,10 +50,6 @@ export const MasterClassHub = () => {
       {/* Header */}
       <header className="border-b border-border/50 glass-effect sticky top-0 z-10 relative">
         <div className="container mx-auto px-4 py-6">
-          <Button variant="ghost" onClick={() => navigate("/")} className="mb-4">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Home
-          </Button>
           <h1 className="text-3xl font-bold bg-gradient-purple bg-clip-text text-transparent">MasterClass Programs</h1>
           <p className="text-muted-foreground mt-2">Choose your learning path</p>
         </div>

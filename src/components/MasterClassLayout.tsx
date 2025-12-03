@@ -21,16 +21,16 @@ export const MasterClassLayout = ({ children, hideNav = false }: MasterClassLayo
     }
   }, [navigate]);
 
-  const currentView = location.pathname.includes("/exam") ? "comprehensive" :
+  const currentView = location.pathname.includes("/exam") ? "masterclass-exam" :
                      location.pathname.includes("/profile") ? "profile" :
-                     location.pathname.includes("/leaderboard") ? "leaderboard" :
-                     "dashboard";
+                     location.pathname.includes("/leaderboard") ? "masterclass-leaderboard" :
+                     "masterclass-dashboard";
 
   const handleNavigate = (view: string) => {
-    if (view === "dashboard") navigate("/masterclass/dashboard");
+    if (view === "masterclass-dashboard") navigate("/masterclass/dashboard");
     else if (view === "profile") navigate("/masterclass/profile");
-    else if (view === "leaderboard") navigate("/masterclass/leaderboard");
-    else if (view === "comprehensive") navigate("/masterclass/exam");
+    else if (view === "masterclass-leaderboard") navigate("/masterclass/leaderboard");
+    else if (view === "masterclass-exam") navigate("/masterclass/exam");
   };
 
   const handleBackToHome = () => {
