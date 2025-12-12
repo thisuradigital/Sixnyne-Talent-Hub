@@ -44,30 +44,36 @@ export const MasterClassHub = () => {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Gradient Background */}
-      <div className="fixed inset-0 bg-gradient-radial opacity-60 pointer-events-none" />
+      {/* Animated Background */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial opacity-40 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-purple-glow opacity-30 rounded-full blur-3xl" />
+      </div>
       
       {/* Header */}
-      <header className="border-b border-border/50 glass-effect sticky top-0 z-10 relative">
+      <header className="border-b border-border/30 glass-effect sticky top-0 z-50 relative backdrop-blur-xl">
         <div className="container mx-auto px-4 py-6">
           <Button variant="ghost" onClick={() => navigate("/")} className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Button>
-          <h1 className="text-3xl font-bold bg-gradient-purple bg-clip-text text-transparent">MasterClass Programs</h1>
-          <p className="text-muted-foreground mt-2">Choose your learning path</p>
+          <h1 className="text-4xl font-bold bg-gradient-purple bg-clip-text text-transparent">MasterClass Programs</h1>
+          <p className="text-muted-foreground mt-2">Choose your learning path and develop your skills</p>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-12 max-w-6xl relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="container mx-auto px-4 py-16 max-w-6xl relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {categories.map((category, index) => {
             const Icon = category.icon;
             return (
-              <Card 
+              <div
                 key={category.id}
-                className="group hover-lift relative overflow-hidden border-border/50 backdrop-blur-sm bg-card/80 shadow-card animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="fade-in"
+                style={{ animationDelay: `${index * 80}ms` }}
+              >
+              <Card 
+                className="group card-hover h-full relative overflow-hidden border border-border/40 hover:border-border/60"
               >
                 <CardContent className="p-8 relative">
                   {category.status === "coming-soon" && (
@@ -104,6 +110,7 @@ export const MasterClassHub = () => {
                   </Button>
                 </CardContent>
               </Card>
+              </div>
             );
           })}
         </div>

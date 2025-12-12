@@ -23,9 +23,15 @@ export const JobListings = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial opacity-30 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-500/10 opacity-20 rounded-full blur-3xl" />
+      </div>
+      
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
+      <header className="border-b border-border/30 glass-effect sticky top-0 z-50 relative backdrop-blur-xl">
         <div className="container mx-auto px-4 py-6">
           <Button
             variant="ghost"
@@ -35,29 +41,30 @@ export const JobListings = () => {
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Button>
-          <h1 className="text-3xl font-bold text-foreground">Open Positions</h1>
-          <p className="text-muted-foreground mt-2">Find your next opportunity</p>
+          <h1 className="text-4xl font-bold text-foreground">Open Positions</h1>
+          <p className="text-muted-foreground mt-2">Find your next opportunity and join our team</p>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="container mx-auto px-4 py-12 max-w-6xl relative z-10">
         {/* Search and Filters */}
-        <div className="mb-8 space-y-4">
+        <div className="mb-12 space-y-6">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
-              placeholder="Search jobs..."
+              placeholder="Search jobs by title or keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
+              className="pl-12 h-12 text-base bg-card border-border/50 shadow-card focus:shadow-elevated"
             />
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3">
             <Button
               variant={selectedDepartment === null ? "default" : "outline"}
               size="sm"
               onClick={() => setSelectedDepartment(null)}
+              className="transition-all duration-300"
             >
               All Departments
             </Button>
