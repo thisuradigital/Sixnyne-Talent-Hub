@@ -34,7 +34,7 @@ export const Profile = () => {
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout? Your progress is saved and will be available when you log back in.")) {
       clearUserProfile();
-      navigate("/masterclass/login");
+      window.location.href = "/login";
     }
   };
 

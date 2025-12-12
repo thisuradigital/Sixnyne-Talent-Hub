@@ -30,8 +30,8 @@ export const Login = () => {
     const profile: UserProfile = { name: name.trim(), role: role.trim() };
     saveUserProfile(profile);
     
-    // Navigate to home
-    navigate("/");
+    // Force page reload to refresh app state with new login
+    window.location.href = "/";
   };
 
   return (

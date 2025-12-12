@@ -17,7 +17,7 @@ export const MasterClassLayout = ({ children, hideNav = false }: MasterClassLayo
   useEffect(() => {
     const profile = getUserProfile();
     if (!profile) {
-      navigate("/masterclass/login");
+      navigate("/login");
     }
   }, [navigate]);
 
