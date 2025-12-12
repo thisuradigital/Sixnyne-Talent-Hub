@@ -52,21 +52,6 @@ export const Homepage = () => {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-purple-glow opacity-30 rounded-full blur-3xl" />
       </div>
       
-      {/* Header */}
-      <header className="border-b border-border/30 glass-effect sticky top-0 z-50 relative backdrop-blur-xl">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center gap-4">
-            <div className="p-3 rounded-xl bg-gradient-purple shadow-elevated">
-              <GraduationCap className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">Talent Hub</h1>
-              <p className="text-sm text-muted-foreground">Your gateway to opportunities and growth</p>
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* Main Content */}
       <main className="container mx-auto px-4 py-20 max-w-7xl relative z-10">
         {/* Hero Section */}
