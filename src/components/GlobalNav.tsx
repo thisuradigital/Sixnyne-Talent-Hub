@@ -10,7 +10,7 @@ export const GlobalNav = () => {
 
   const navItems = [
     { id: "home", path: "/", label: "Home", icon: Home },
-    { id: "jobs", path: "/jobs", label: "Jobs", icon: Briefcase },
+    { id: "jobs", path: "/jobs", label: "Opportunities", icon: Briefcase },
     { id: "masterclass", path: "/masterclass", label: "MasterClass", icon: GraduationCap },
     { id: "skills", path: "/skill-testing", label: "Skills", icon: ClipboardCheck },
     { id: "company", path: "/company", label: "Company", icon: Building2 },
