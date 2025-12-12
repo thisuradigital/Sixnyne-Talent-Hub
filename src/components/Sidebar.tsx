@@ -25,9 +25,9 @@ export const Sidebar = ({ currentView, onNavigate, onBackToHome }: SidebarProps)
           </div>
           <div>
             <h1 className="font-bold text-sidebar-foreground text-lg leading-tight">
-              Training Portal
+              MasterClass Portal
             </h1>
-            <p className="text-xs text-sidebar-foreground/70">Dashboard</p>
+            <p className="text-xs text-sidebar-foreground/70">Talent Hub</p>
           </div>
         </div>
 

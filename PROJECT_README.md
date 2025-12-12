@@ -1,31 +1,54 @@
-# Client Service MasterClass
+# Talent Hub
 
-An interactive Progressive Web Application (PWA) for training and onboarding Client Service teams. Built with React 19, TypeScript, and Tailwind CSS.
+Your gateway to opportunities, growth, and development. An interactive Progressive Web Application (PWA) that combines job applications, professional training, skills assessments, and company culture discovery. Built with React 19, TypeScript, and Tailwind CSS.
 
-## Features
+## Platform Overview
 
-### 🎓 Learning Modules
-- **5 Comprehensive Modules** covering:
+Talent Hub is a comprehensive talent management platform featuring four integrated pathways:
+
+### 💼 Opportunities
+- Browse and apply to open positions
+- Detailed job descriptions with requirements and responsibilities
+- Streamlined application process
+- Track application status
+
+### 🎓 MasterClass Programs
+- **Client Service MasterClass** - 5 comprehensive modules covering:
   - Foundations & Communication
   - Project Management Excellence
   - Meetings & Digital Etiquette
   - Documentation & Security
   - Client Strategy & Relations
 
+- **Design MasterClass** - Professional design training (coming soon)
+- **Creative MasterClass** - Creative excellence programs (coming soon)
+
 - Each module includes:
   - Multiple sections with detailed content
-  - DO's and DON'Ts cards
+  - DO's and DON'Ts best practices
   - Section completion tracking
-  - Progress bars
+  - Interactive quizzes with instant feedback
+  - Certificate generation for passing scores (70%+)
 
-### 📝 Interactive Quizzes
-- 10 questions per module
-- Instant feedback with explanations
-- Module-specific and Comprehensive Exam modes
-- Score tracking and best score persistence
-- Certificate generation for passing scores (70%+)
+### 🎯 Skills Development
+- Competency validation assessments
+- Required assessments for new hire onboarding
+- Categories include:
+  - Communication Skills
+  - Problem Solving
+  - Time Management
+  - Technical Knowledge
+- Preparation lessons and retake options
 
-### 🎮 Gamification
+### 🏢 Company Culture
+- Learn about company values and mission
+- Explore office locations
+- Discover benefits and perks
+- Read FAQs about working with us
+
+## Key Features
+
+### 🎮 Gamification & Progress Tracking
 - **XP System**:
   - 50 XP per completed section
   - 100 XP per correct quiz answer
@@ -35,9 +58,9 @@ An interactive Progressive Web Application (PWA) for training and onboarding Cli
 
 ### 👤 User Management
 - Simple name/role login
-- Profile editing
+- Profile editing and statistics
 - Session persistence via localStorage
-- Statistics dashboard (Total XP, Modules Completed, Quiz Average)
+- Personal dashboard with achievements
 
 ### 🏆 Certifications
 - Auto-generated certificates upon passing quizzes
@@ -96,13 +119,29 @@ Each module contains:
 
 ## Routes/Views
 
+### Authentication & Navigation
 1. **Login** - Initial authentication
-2. **Dashboard** - Module overview with search
-3. **Module Reader** - Section-by-section content viewer
-4. **Quiz Runner** - Interactive quiz interface
-5. **Profile** - User settings and statistics
-6. **Leaderboard** - XP rankings
-7. **Comprehensive Exam** - Final assessment
+2. **Homepage** - Main portal with four pathway cards
+3. **Not Found (404)** - Error page with quick navigation links
+
+### Job Application Pathway
+4. **Job Listings** - Browse open positions
+5. **Job Details** - View specific job information
+6. **Job Application** - Submit application form
+
+### MasterClass Pathway
+7. **MasterClass Hub** - Choose learning path (Client Service, Design, Creative)
+8. **Dashboard** - Module overview with search and progress
+9. **Module Reader** - Section-by-section content viewer
+10. **Quiz Runner** - Interactive quiz interface
+11. **Profile** - User settings and statistics
+12. **Leaderboard** - XP rankings and achievements
+
+### Skills Development Pathway
+13. **Skill Testing Dashboard** - Assessments and preparation lessons
+
+### Company Information Pathway
+14. **Company Info** - About us, values, culture, and FAQs
 
 ## PWA Setup
 

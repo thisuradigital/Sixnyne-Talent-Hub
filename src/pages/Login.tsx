@@ -50,7 +50,7 @@ export const Login = () => {
           <div>
             <CardTitle className="text-3xl font-bold bg-gradient-purple bg-clip-text text-transparent">Welcome</CardTitle>
             <CardDescription className="mt-2">
-              Join our Hiring Portal and explore amazing opportunities
+              Join our Talent Hub and unlock opportunities for growth and development
             </CardDescription>
           </div>
         </CardHeader>

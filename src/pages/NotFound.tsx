@@ -62,8 +62,8 @@ const NotFound = () => {
               <GraduationCap className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-foreground">Hiring Portal</h1>
-              <p className="text-sm text-muted-foreground">Your gateway to opportunities</p>
+              <h1 className="text-2xl font-bold text-foreground">Talent Hub</h1>
+              <p className="text-sm text-muted-foreground">Your gateway to opportunities and growth</p>
             </div>
           </div>
         </div>

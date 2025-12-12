@@ -1,7 +1,7 @@
 {
-  "name": "Client Service MasterClass",
-  "short_name": "CS MasterClass",
-  "description": "Interactive training portal for Client Service teams",
+  "name": "Talent Hub",
+  "short_name": "Talent Hub",
+  "description": "Your gateway to opportunities, growth, and development",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",
