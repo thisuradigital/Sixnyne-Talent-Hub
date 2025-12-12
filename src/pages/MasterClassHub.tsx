@@ -43,7 +43,7 @@ export const MasterClassHub = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden" style={{ paddingBottom: "2rem" }}>
+    <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Animated Background */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial opacity-40 rounded-full blur-3xl" />

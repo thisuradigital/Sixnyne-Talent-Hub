@@ -1,4 +1,4 @@
-import { GlobalNav } from "./GlobalNav";
+import { GlobalHeader } from "./GlobalHeader";
 
 interface GlobalLayoutProps {
   children: React.ReactNode;
@@ -7,9 +7,9 @@ interface GlobalLayoutProps {
 
 export const GlobalLayout = ({ children, hideNav }: GlobalLayoutProps) => {
   return (
-    <div className="pb-20 md:pb-20">
+    <div className="pt-16">
+      {!hideNav && <GlobalHeader />}
       {children}
-      {!hideNav && <GlobalNav />}
     </div>
   );
 };

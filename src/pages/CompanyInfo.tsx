@@ -58,7 +58,7 @@ export const CompanyInfo = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background" style={{ paddingBottom: "2rem" }}>
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-6">

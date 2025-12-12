@@ -9,7 +9,7 @@ This is an attractive hiring portal application that provides:
 - **Job listings and application workflows**
 - **MasterClass training programs** for Client Service, Design, and Creative roles
 - **Skill testing assessments** for competency validation
-- **Global Bottom Navigation** accessible from all pages
+- **Global Header Navigation** accessible from all pages
 - **User profiles and progress tracking**
 - **Leaderboard functionality**
 
@@ -27,12 +27,18 @@ This is an attractive hiring portal application that provides:
 
 ## Global Navigation
 
-### Bottom Navigation Bar
+### Top Header Navigation
 - Present on all pages (except login)
-- Desktop: Shows labeled navigation buttons
-- Mobile: Shows compact icons with labels
-- Contains: Home, Jobs, MasterClass, Skills, Company, and Logout
+- **Desktop**: Shows horizontal menu bar with navigation buttons and labels
+  - Contains: Home, Jobs, MasterClass, Skills, Company navigation items
+  - Logout button on the right side
+  - Logo badge on the left showing "HP"
+- **Mobile**: Shows hamburger menu button that opens dropdown menu
+  - Tap menu button to show/hide navigation items
+  - Full vertical menu with all options
+  - Auto-closes when selecting an item
 - Active state styling to show current section
+- Fixed position at top with glass-effect background
 - Consistent styling across entire application
 
 ## Project Architecture
@@ -133,33 +139,41 @@ npm run preview
 - Single user profile stored globally in localStorage
 - Logout button available in global navigation
 
-### Global Navigation System
-- Created `GlobalNav.tsx` component with unified navigation
-- Navigation appears on all pages (except login) as bottom fixed bar
-- Desktop: Shows labeled navigation items
-- Mobile: Shows compact icon buttons with labels
-- Includes logout functionality
-- Responsive design adapts to screen size
+### Global Navigation System (Updated)
+- **Created `GlobalHeader.tsx`**: Top header navigation component
+  - Desktop: Horizontal menu bar with full labels and icons
+  - Mobile: Hamburger menu with dropdown
+  - Moved from bottom to top of page
+  - Logo badge "HP" on left side
+  - Active route styling for current page
+  - Smooth animations and glass-effect design
 
-### Global Layout
-- Created `GlobalLayout.tsx` wrapper component
-- Automatically adds bottom navigation to all protected routes
-- Provides consistent spacing and layout structure
-- Option to hide nav on specific pages (e.g., full-screen modules)
+- **Updated `GlobalLayout.tsx`**: 
+  - Changed from bottom padding (`pb-20`) to top padding (`pt-16`)
+  - Now includes header at top via GlobalHeader component
+  - Fixed position header with proper z-index layering
+
+### Navigation Fixes
+- Removed `hideNav` prop from ModuleReader routes
+- Removed `hideNav` prop from QuizRunner routes
+- Users now have full navigation access from module pages
+- Can navigate away from training modules at any time
+
+### Pages Updated (Padding Adjustments)
+- **Homepage.tsx**: Removed bottom padding
+- **JobListings.tsx**: Removed bottom padding
+- **CompanyInfo.tsx**: Removed bottom padding
+- **SkillTestingDashboard.tsx**: Removed bottom padding
+- **MasterClassHub.tsx**: Removed bottom padding
+- **ModuleReader.tsx**: Removed bottom padding
+- **QuizRunner.tsx**: Removed bottom padding (both main and completion screens)
 
 ### UI/UX Improvements
-- Enhanced Login page with modern design and background effects
-- Added padding to all pages to accommodate bottom navigation
-- Updated App.tsx routing structure for authentication flow
-- Removed redundant login routes and integrated single auth system
-
-### Pages Updated
-- **Login.tsx**: Unified global login with modern design
-- **Homepage.tsx**: Added bottom padding
-- **JobListings.tsx**: Added bottom padding
-- **CompanyInfo.tsx**: Added bottom padding
-- **SkillTestingDashboard.tsx**: Added bottom padding
-- **MasterClassHub.tsx**: Added bottom padding
+- Header navigation fixed at top with glass-effect background
+- Responsive design: hamburger menu on mobile, full menu on desktop
+- No content overlap with navigation
+- Smooth transitions and modern styling
+- Logo integration in header
 
 ## Component Hierarchy
 
