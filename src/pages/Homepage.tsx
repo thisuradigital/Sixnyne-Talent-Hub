@@ -8,8 +8,8 @@ export const Homepage = () => {
   const pathways = [
     {
       path: "/jobs",
-      title: "Apply for Jobs",
-      description: "Explore open positions and submit your application to join our team",
+      title: "Explore Opportunities",
+      description: "Discover open positions and submit your application to join our team or transition to new roles",
       icon: Briefcase,
       gradient: "from-red-500/20 to-orange-500/10",
       accentColor: "from-red-500 to-orange-500",
@@ -18,7 +18,7 @@ export const Homepage = () => {
     {
       path: "/masterclass",
       title: "MasterClasses",
-      description: "Comprehensive training programs for Client Service, Design, and Creative roles",
+      description: "Comprehensive training programs for Client Service, Design, and Creative roles to elevate your expertise",
       icon: GraduationCap,
       gradient: "from-purple-500/20 to-pink-500/10",
       accentColor: "from-purple-500 to-pink-500",
@@ -26,8 +26,8 @@ export const Homepage = () => {
     },
     {
       path: "/skill-testing",
-      title: "Skill Testing",
-      description: "Assessments and learning modules for new hires to validate core competencies",
+      title: "Skills Development",
+      description: "Assessments and learning modules to validate and strengthen core competencies at every career stage",
       icon: ClipboardCheck,
       gradient: "from-amber-500/20 to-yellow-500/10",
       accentColor: "from-amber-500 to-yellow-500",
@@ -35,8 +35,8 @@ export const Homepage = () => {
     },
     {
       path: "/company",
-      title: "Get to Know the Company",
-      description: "Learn about our culture, values, team, and what makes us unique",
+      title: "Discover Our Culture",
+      description: "Learn about our values, team, work environment, and what makes us a great place to build your career",
       icon: Building2,
       gradient: "from-cyan-500/20 to-blue-500/10",
       accentColor: "from-cyan-500 to-blue-500",
@@ -60,8 +60,8 @@ export const Homepage = () => {
               <GraduationCap className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-foreground">Hiring Portal</h1>
-              <p className="text-sm text-muted-foreground">Your gateway to opportunities</p>
+              <h1 className="text-3xl font-bold text-foreground">Talent Hub</h1>
+              <p className="text-sm text-muted-foreground">Your gateway to opportunities and growth</p>
             </div>
           </div>
         </div>
@@ -80,11 +80,11 @@ export const Homepage = () => {
           
           <h2 className="text-6xl md:text-7xl font-bold text-foreground leading-tight">
             Welcome to Our <br />
-            <span className="bg-gradient-purple bg-clip-text text-transparent">Hiring Portal</span>
+            <span className="bg-gradient-purple bg-clip-text text-transparent">Talent Hub</span>
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Choose your path below to get started on your journey with us. Whether you're looking to join our team, develop your skills, or learn about our culture, we have the perfect pathway for you.
+            Choose your path below to get started. Whether you're exploring new opportunities, developing your skills, or learning about our culture, we have the perfect pathway to support your growth.
           </p>
         </div>
 
@@ -146,13 +146,13 @@ export const Homepage = () => {
             Whatever pathway you choose, we're here to support your success and growth.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
+            <Button
               onClick={() => navigate("/jobs")}
               variant="default"
               className="bg-gradient-purple hover:shadow-glow text-white"
               size="lg"
             >
-              Explore Jobs
+              Explore Opportunities
             </Button>
             <Button 
               onClick={() => navigate("/masterclass")}

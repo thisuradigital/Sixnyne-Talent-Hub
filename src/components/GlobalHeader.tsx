@@ -12,7 +12,7 @@ export const GlobalHeader = () => {
 
   const navItems = [
     { id: "home", path: "/", label: "Home", icon: Home },
-    { id: "jobs", path: "/jobs", label: "Jobs", icon: Briefcase },
+    { id: "jobs", path: "/jobs", label: "Opportunities", icon: Briefcase },
     { id: "masterclass", path: "/masterclass", label: "MasterClass", icon: GraduationCap },
     { id: "skills", path: "/skill-testing", label: "Skills", icon: ClipboardCheck },
     { id: "company", path: "/company", label: "Company", icon: Building2 },
@@ -40,9 +40,9 @@ export const GlobalHeader = () => {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-lg bg-gradient-purple flex items-center justify-center">
-              <span className="text-white font-bold text-sm">HP</span>
+              <span className="text-white font-bold text-sm">TH</span>
             </div>
-            <span className="hidden sm:inline font-semibold text-lg">Hiring Portal</span>
+            <span className="hidden sm:inline font-semibold text-lg">Talent Hub</span>
           </div>
 
           {/* Desktop Navigation */}
