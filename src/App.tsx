@@ -56,8 +56,8 @@ const App = () => {
               
               {/* MasterClass Protected Routes */}
               <Route path="/masterclass/dashboard" element={<MasterClassLayout><Dashboard /></MasterClassLayout>} />
-              <Route path="/masterclass/module/:moduleId" element={<MasterClassLayout hideNav><ModuleReader /></MasterClassLayout>} />
-              <Route path="/masterclass/quiz/:moduleId" element={<MasterClassLayout hideNav><QuizRunner isComprehensive={false} /></MasterClassLayout>} />
+              <Route path="/masterclass/module/:moduleId" element={<MasterClassLayout><ModuleReader /></MasterClassLayout>} />
+              <Route path="/masterclass/quiz/:moduleId" element={<MasterClassLayout><QuizRunner isComprehensive={false} /></MasterClassLayout>} />
               <Route path="/masterclass/exam" element={<MasterClassLayout><QuizRunner isComprehensive={true} moduleId="comprehensive" /></MasterClassLayout>} />
               <Route path="/masterclass/profile" element={<MasterClassLayout><Profile /></MasterClassLayout>} />
               <Route path="/masterclass/leaderboard" element={<MasterClassLayout><Leaderboard /></MasterClassLayout>} />

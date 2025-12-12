@@ -74,7 +74,7 @@ export const ModuleReader = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-24 lg:pb-8">
       {toast && (
         <Toast
           message={toast.message}
@@ -89,7 +89,7 @@ export const ModuleReader = () => {
           <div className="flex items-center justify-between mb-4">
             <Button onClick={() => navigate("/masterclass/dashboard")} variant="ghost" size="sm">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back
+              Back to Dashboard
             </Button>
             <Button onClick={() => navigate(`/masterclass/quiz/${moduleId}`)} variant="outline" size="sm">
               Take Quiz

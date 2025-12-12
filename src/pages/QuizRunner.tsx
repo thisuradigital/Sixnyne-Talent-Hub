@@ -108,7 +108,7 @@ export const QuizRunner = ({ isComprehensive: isComprehensiveProp = false, modul
 
   if (quizComplete) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background pb-24 lg:pb-8">
         <div className="container mx-auto px-4 py-8 max-w-4xl">
           <Card className="text-center">
             <CardContent className="p-8">
@@ -167,7 +167,7 @@ export const QuizRunner = ({ isComprehensive: isComprehensiveProp = false, modul
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-24 lg:pb-8">
       {/* Header */}
       <div className="border-b bg-card">
         <div className="container mx-auto px-4 py-4">
