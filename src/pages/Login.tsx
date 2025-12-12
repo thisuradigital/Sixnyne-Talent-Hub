@@ -1,18 +1,15 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { GraduationCap } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { saveUserProfile } from "@/utils/storage";
 import { UserProfile } from "@/types";
 
 export const Login = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const isMasterClass = location.pathname.includes("masterclass");
-  const isSkillTesting = location.pathname.includes("skill-testing");
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [errors, setErrors] = useState({ name: "", role: "" });
@@ -33,25 +30,27 @@ export const Login = () => {
     const profile: UserProfile = { name: name.trim(), role: role.trim() };
     saveUserProfile(profile);
     
-    // Navigate based on pathway
-    if (isMasterClass) {
-      navigate("/masterclass/dashboard");
-    } else if (isSkillTesting) {
-      navigate("/skill-testing");
-    }
+    // Navigate to home
+    navigate("/");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-accent/10 p-4">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-accent/10 p-4 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-radial opacity-30 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-purple-glow opacity-20 rounded-full blur-3xl" />
+      </div>
+
+      <Card className="w-full max-w-md relative z-10 shadow-elevated">
         <CardHeader className="text-center space-y-4">
-          <div className="mx-auto p-4 bg-primary rounded-full w-fit">
-            <GraduationCap className="h-12 w-12 text-primary-foreground" />
+          <div className="mx-auto p-4 bg-gradient-purple rounded-full w-fit shadow-glow">
+            <Sparkles className="h-12 w-12 text-white" />
           </div>
           <div>
-            <CardTitle className="text-3xl font-bold">Client Service MasterClass</CardTitle>
+            <CardTitle className="text-3xl font-bold bg-gradient-purple bg-clip-text text-transparent">Welcome</CardTitle>
             <CardDescription className="mt-2">
-              Welcome to your interactive training portal. Let's get started!
+              Join our Hiring Portal and explore amazing opportunities
             </CardDescription>
           </div>
         </CardHeader>
@@ -92,8 +91,8 @@ export const Login = () => {
               )}
             </div>
 
-            <Button type="submit" className="w-full" size="lg">
-              Begin Training
+            <Button type="submit" className="w-full bg-gradient-purple hover:shadow-glow text-white" size="lg">
+              Get Started
             </Button>
           </form>
         </CardContent>
