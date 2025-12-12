@@ -9,7 +9,7 @@ export const MasterClassHub = () => {
   const categories = [
     {
       id: "cs",
-      path: "/masterclass/login",
+      path: "/masterclass/dashboard",
       title: "Client Service MasterClass",
       description: "Master the art of exceptional client relationships, communication, and service delivery",
       icon: Users,
