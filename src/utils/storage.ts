@@ -1,4 +1,4 @@
-import { UserProfile, CompletedSection, QuizScore, JobApplication, Task, StalledTask } from "@/types";
+import { UserProfile, CompletedSection, QuizScore, JobApplication, Task, StalledTask, Holiday } from "@/types";
 import { calculateWorkingDays } from "./dateUtils";
 import { MOCK_TASKS } from "@/data/mockTasks";
 
@@ -8,7 +8,8 @@ const STORAGE_KEYS = {
   QUIZ_SCORES: 'csm_quiz_scores',
   JOB_APPLICATIONS: 'hiring_job_applications',
   SKILL_TESTING_SCORES: 'skill_testing_scores',
-  TASKS: 'task_management_tasks'
+  TASKS: 'task_management_tasks',
+  HOLIDAYS: 'admin_holidays'
 };
 
 // User Profile
@@ -165,6 +166,53 @@ export const saveJobApplication = (jobId: string, formData: Omit<JobApplication,
   localStorage.setItem(STORAGE_KEYS.JOB_APPLICATIONS, JSON.stringify(applications));
 };
 
+// Holiday Management
+export const getHolidays = (): Holiday[] => {
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.HOLIDAYS);
+    return data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.error('Error parsing holidays from localStorage:', error);
+    return [];
+  }
+};
+
+export const saveHoliday = (holiday: Omit<Holiday, 'id'>): Holiday => {
+  const holidays = getHolidays();
+  const newHoliday: Holiday = {
+    id: `holiday_${Date.now()}`,
+    ...holiday
+  };
+  holidays.push(newHoliday);
+  localStorage.setItem(STORAGE_KEYS.HOLIDAYS, JSON.stringify(holidays));
+  return newHoliday;
+};
+
+export const deleteHoliday = (id: string): void => {
+  const holidays = getHolidays();
+  const filtered = holidays.filter(h => h.id !== id);
+  localStorage.setItem(STORAGE_KEYS.HOLIDAYS, JSON.stringify(filtered));
+};
+
+export const updateHoliday = (id: string, updates: Partial<Omit<Holiday, 'id'>>): void => {
+  const holidays = getHolidays();
+  const index = holidays.findIndex(h => h.id === id);
+  if (index >= 0) {
+    holidays[index] = { ...holidays[index], ...updates };
+    localStorage.setItem(STORAGE_KEYS.HOLIDAYS, JSON.stringify(holidays));
+  }
+};
+
+export const isHoliday = (date: Date | number): boolean => {
+  const holidays = getHolidays();
+  const dateStr = new Date(date).toISOString().split('T')[0];
+  return holidays.some(h => h.date === dateStr);
+};
+
+export const getHolidayDates = (): string[] => {
+  return getHolidays().map(h => h.date);
+};
+
 // Task Management
 export const getTasks = (): Task[] => {
   try {
@@ -192,6 +240,7 @@ export const saveTasks = (tasks: Task[]): void => {
  */
 export const getStalledTasks = (minWorkingDays: number = 1): StalledTask[] => {
   const tasks = getTasks();
+  const holidayDates = getHolidayDates();
   const now = Date.now();
 
   return tasks
@@ -199,7 +248,7 @@ export const getStalledTasks = (minWorkingDays: number = 1): StalledTask[] => {
     .map(task => {
       // Calculate working days since the more recent of statusChangedAt or assigneeChangedAt
       const lastChangeAt = Math.max(task.statusChangedAt, task.assigneeChangedAt);
-      const workingDaysStalled = calculateWorkingDays(lastChangeAt, now);
+      const workingDaysStalled = calculateWorkingDays(lastChangeAt, now, holidayDates);
 
       return {
         ...task,

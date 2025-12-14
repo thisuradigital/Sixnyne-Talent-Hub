@@ -192,7 +192,7 @@ export const StalledTasksSection = () => {
             <CardTitle>Stalled Task Detection</CardTitle>
             <CardDescription>
               Tasks that have not progressed (same status and assignee) for extended periods.
-              Only working days (Monday-Friday) are counted.
+              Only working days (Monday-Friday, excluding holidays) are counted.
             </CardDescription>
           </div>
         </div>
