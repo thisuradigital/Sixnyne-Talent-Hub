@@ -1,0 +1,201 @@
+import { Task } from '@/types';
+import { getWorkingDaysAgo } from '@/utils/dateUtils';
+
+// Generate mock tasks with various stalled durations for demonstration
+export const generateMockTasks = (): Task[] => {
+  const now = Date.now();
+
+  return [
+    // Tasks stalled for more than 3 working days
+    {
+      id: 'task-001',
+      title: 'Implement user authentication flow',
+      description: 'Add OAuth2 authentication with Google and GitHub providers',
+      status: 'In Progress',
+      assignee: 'John Smith',
+      team: 'Engineering',
+      category: 'Development',
+      statusChangedAt: getWorkingDaysAgo(5),
+      assigneeChangedAt: getWorkingDaysAgo(5),
+      createdAt: getWorkingDaysAgo(10),
+    },
+    {
+      id: 'task-002',
+      title: 'Design system documentation',
+      description: 'Create comprehensive documentation for the design system components',
+      status: 'In Review',
+      assignee: 'Sarah Johnson',
+      team: 'Design',
+      category: 'Design',
+      statusChangedAt: getWorkingDaysAgo(4),
+      assigneeChangedAt: getWorkingDaysAgo(6),
+      createdAt: getWorkingDaysAgo(8),
+    },
+    {
+      id: 'task-003',
+      title: 'API rate limiting implementation',
+      description: 'Add rate limiting to prevent abuse of API endpoints',
+      status: 'Blocked',
+      assignee: 'Mike Chen',
+      team: 'Engineering',
+      category: 'Development',
+      statusChangedAt: getWorkingDaysAgo(7),
+      assigneeChangedAt: getWorkingDaysAgo(7),
+      createdAt: getWorkingDaysAgo(12),
+    },
+
+    // Tasks stalled for 2-3 working days
+    {
+      id: 'task-004',
+      title: 'Marketing campaign assets',
+      description: 'Create social media graphics for Q1 campaign',
+      status: 'In Progress',
+      assignee: 'Emily Davis',
+      team: 'Marketing',
+      category: 'Marketing',
+      statusChangedAt: getWorkingDaysAgo(3),
+      assigneeChangedAt: getWorkingDaysAgo(3),
+      createdAt: getWorkingDaysAgo(5),
+    },
+    {
+      id: 'task-005',
+      title: 'Customer feedback analysis',
+      description: 'Analyze and categorize customer feedback from last month',
+      status: 'To Do',
+      assignee: 'Alex Rodriguez',
+      team: 'Support',
+      category: 'Support',
+      statusChangedAt: getWorkingDaysAgo(3),
+      assigneeChangedAt: getWorkingDaysAgo(3),
+      createdAt: getWorkingDaysAgo(3),
+    },
+    {
+      id: 'task-006',
+      title: 'Performance optimization',
+      description: 'Optimize database queries for dashboard loading',
+      status: 'In Review',
+      assignee: 'David Kim',
+      team: 'Engineering',
+      category: 'Development',
+      statusChangedAt: getWorkingDaysAgo(2),
+      assigneeChangedAt: getWorkingDaysAgo(4),
+      createdAt: getWorkingDaysAgo(6),
+    },
+
+    // Tasks stalled for 1-2 working days
+    {
+      id: 'task-007',
+      title: 'Update pricing page copy',
+      description: 'Revise pricing page content based on new plans',
+      status: 'In Progress',
+      assignee: 'Lisa Wang',
+      team: 'Product',
+      category: 'Marketing',
+      statusChangedAt: getWorkingDaysAgo(2),
+      assigneeChangedAt: getWorkingDaysAgo(2),
+      createdAt: getWorkingDaysAgo(3),
+    },
+    {
+      id: 'task-008',
+      title: 'Mobile responsiveness fixes',
+      description: 'Fix layout issues on mobile devices',
+      status: 'In Progress',
+      assignee: 'Chris Brown',
+      team: 'Engineering',
+      category: 'Development',
+      statusChangedAt: getWorkingDaysAgo(1),
+      assigneeChangedAt: getWorkingDaysAgo(2),
+      createdAt: getWorkingDaysAgo(4),
+    },
+    {
+      id: 'task-009',
+      title: 'Onboarding email sequence',
+      description: 'Design and implement new user onboarding emails',
+      status: 'To Do',
+      assignee: 'Jennifer Lee',
+      team: 'Marketing',
+      category: 'Marketing',
+      statusChangedAt: getWorkingDaysAgo(1),
+      assigneeChangedAt: getWorkingDaysAgo(1),
+      createdAt: getWorkingDaysAgo(2),
+    },
+
+    // Tasks not stalled (recently updated or completed)
+    {
+      id: 'task-010',
+      title: 'Bug fix: Login redirect',
+      description: 'Fix redirect issue after successful login',
+      status: 'Done',
+      assignee: 'Tom Wilson',
+      team: 'Engineering',
+      category: 'Development',
+      statusChangedAt: now - 3600000, // 1 hour ago
+      assigneeChangedAt: getWorkingDaysAgo(1),
+      createdAt: getWorkingDaysAgo(2),
+    },
+    {
+      id: 'task-011',
+      title: 'Update company logo assets',
+      description: 'Replace old logo with new branding',
+      status: 'In Progress',
+      assignee: 'Anna Martinez',
+      team: 'Design',
+      category: 'Design',
+      statusChangedAt: now - 7200000, // 2 hours ago
+      assigneeChangedAt: now - 7200000,
+      createdAt: getWorkingDaysAgo(1),
+    },
+    {
+      id: 'task-012',
+      title: 'Sales dashboard widgets',
+      description: 'Add new KPI widgets to sales dashboard',
+      status: 'To Do',
+      assignee: 'Robert Taylor',
+      team: 'Sales',
+      category: 'Operations',
+      statusChangedAt: now - 14400000, // 4 hours ago
+      assigneeChangedAt: now - 14400000,
+      createdAt: now - 14400000,
+    },
+
+    // More stalled tasks for variety
+    {
+      id: 'task-013',
+      title: 'Security audit remediation',
+      description: 'Address findings from security audit report',
+      status: 'Blocked',
+      assignee: 'Mike Chen',
+      team: 'Engineering',
+      category: 'Operations',
+      statusChangedAt: getWorkingDaysAgo(6),
+      assigneeChangedAt: getWorkingDaysAgo(6),
+      createdAt: getWorkingDaysAgo(10),
+    },
+    {
+      id: 'task-014',
+      title: 'User research interviews',
+      description: 'Conduct interviews with enterprise customers',
+      status: 'In Progress',
+      assignee: 'Sarah Johnson',
+      team: 'Product',
+      category: 'Design',
+      statusChangedAt: getWorkingDaysAgo(4),
+      assigneeChangedAt: getWorkingDaysAgo(5),
+      createdAt: getWorkingDaysAgo(8),
+    },
+    {
+      id: 'task-015',
+      title: 'Support ticket automation',
+      description: 'Set up automated responses for common tickets',
+      status: 'In Review',
+      assignee: 'Alex Rodriguez',
+      team: 'Support',
+      category: 'Support',
+      statusChangedAt: getWorkingDaysAgo(2),
+      assigneeChangedAt: getWorkingDaysAgo(3),
+      createdAt: getWorkingDaysAgo(5),
+    },
+  ];
+};
+
+export const MOCK_TASKS = generateMockTasks();

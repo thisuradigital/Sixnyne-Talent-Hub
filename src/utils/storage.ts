@@ -1,11 +1,14 @@
-import { UserProfile, CompletedSection, QuizScore, JobApplication } from "@/types";
+import { UserProfile, CompletedSection, QuizScore, JobApplication, Task, StalledTask } from "@/types";
+import { calculateWorkingDays } from "./dateUtils";
+import { MOCK_TASKS } from "@/data/mockTasks";
 
 const STORAGE_KEYS = {
   USER_PROFILE: 'csm_user_profile',
   COMPLETED_SECTIONS: 'csm_completed_sections',
   QUIZ_SCORES: 'csm_quiz_scores',
   JOB_APPLICATIONS: 'hiring_job_applications',
-  SKILL_TESTING_SCORES: 'skill_testing_scores'
+  SKILL_TESTING_SCORES: 'skill_testing_scores',
+  TASKS: 'task_management_tasks'
 };
 
 // User Profile
@@ -160,4 +163,66 @@ export const saveJobApplication = (jobId: string, formData: Omit<JobApplication,
   };
   applications.push(newApplication);
   localStorage.setItem(STORAGE_KEYS.JOB_APPLICATIONS, JSON.stringify(applications));
+};
+
+// Task Management
+export const getTasks = (): Task[] => {
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.TASKS);
+    if (data) {
+      return JSON.parse(data);
+    }
+    // Initialize with mock data if no tasks exist
+    localStorage.setItem(STORAGE_KEYS.TASKS, JSON.stringify(MOCK_TASKS));
+    return MOCK_TASKS;
+  } catch (error) {
+    console.error('Error parsing tasks from localStorage:', error);
+    return MOCK_TASKS;
+  }
+};
+
+export const saveTasks = (tasks: Task[]): void => {
+  localStorage.setItem(STORAGE_KEYS.TASKS, JSON.stringify(tasks));
+};
+
+/**
+ * Get tasks that have been stalled (same status and assignee) for at least the specified working days
+ * @param minWorkingDays - Minimum number of working days the task has been stalled
+ * @returns Array of stalled tasks with workingDaysStalled property
+ */
+export const getStalledTasks = (minWorkingDays: number = 1): StalledTask[] => {
+  const tasks = getTasks();
+  const now = Date.now();
+
+  return tasks
+    .filter(task => task.status !== 'Done') // Exclude completed tasks
+    .map(task => {
+      // Calculate working days since the more recent of statusChangedAt or assigneeChangedAt
+      const lastChangeAt = Math.max(task.statusChangedAt, task.assigneeChangedAt);
+      const workingDaysStalled = calculateWorkingDays(lastChangeAt, now);
+
+      return {
+        ...task,
+        workingDaysStalled,
+      };
+    })
+    .filter(task => task.workingDaysStalled >= minWorkingDays)
+    .sort((a, b) => b.workingDaysStalled - a.workingDaysStalled); // Sort by most stalled first
+};
+
+/**
+ * Get stalled tasks grouped by threshold (1+ days, 2+ days, 3+ days)
+ */
+export const getStalledTasksByThreshold = (): {
+  oneDayPlus: StalledTask[];
+  twoDaysPlus: StalledTask[];
+  threeDaysPlus: StalledTask[];
+} => {
+  const allStalled = getStalledTasks(1);
+
+  return {
+    oneDayPlus: allStalled.filter(t => t.workingDaysStalled >= 1 && t.workingDaysStalled < 2),
+    twoDaysPlus: allStalled.filter(t => t.workingDaysStalled >= 2 && t.workingDaysStalled < 3),
+    threeDaysPlus: allStalled.filter(t => t.workingDaysStalled >= 3),
+  };
 };

@@ -13,6 +13,7 @@ import { ModuleReader } from "./pages/ModuleReader";
 import { QuizRunner } from "./pages/QuizRunner";
 import { Profile } from "./pages/Profile";
 import { Leaderboard } from "./pages/Leaderboard";
+import { Analytics } from "./pages/Analytics";
 import { MasterClassLayout } from "./components/MasterClassLayout";
 import { GlobalLayout } from "./components/GlobalLayout";
 import { getUserProfile } from "./utils/storage";
@@ -50,6 +51,9 @@ const App = () => {
 
               {/* Company Info */}
               <Route path="/company" element={<CompanyInfo />} />
+
+              {/* Analytics */}
+              <Route path="/analytics" element={<Analytics />} />
 
               {/* MasterClass Pathway */}
               <Route path="/masterclass" element={<MasterClassHub />} />
