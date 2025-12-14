@@ -86,3 +86,25 @@ export interface SkillAssessment {
   passingScore?: number; // percentage
   quiz: QuizQuestion[];
 }
+
+// Task Management types for Analytics
+export type TaskStatus = "To Do" | "In Progress" | "In Review" | "Blocked" | "Done";
+export type TaskCategory = "Development" | "Design" | "Marketing" | "Operations" | "Support";
+export type TaskTeam = "Engineering" | "Product" | "Design" | "Marketing" | "Sales" | "Support";
+
+export interface Task {
+  id: string;
+  title: string;
+  description: string;
+  status: TaskStatus;
+  assignee: string;
+  team: TaskTeam;
+  category: TaskCategory;
+  statusChangedAt: number; // timestamp when status was last changed
+  assigneeChangedAt: number; // timestamp when assignee was last changed
+  createdAt: number;
+}
+
+export interface StalledTask extends Task {
+  workingDaysStalled: number;
+}

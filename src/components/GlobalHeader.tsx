@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Briefcase, GraduationCap, ClipboardCheck, Building2, LogOut, Menu, X } from "lucide-react";
+import { Home, Briefcase, GraduationCap, ClipboardCheck, Building2, BarChart3, LogOut, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { clearUserProfile } from "@/utils/storage";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,7 @@ export const GlobalHeader = () => {
     { id: "jobs", path: "/jobs", label: "Opportunities", icon: Briefcase },
     { id: "masterclass", path: "/masterclass", label: "MasterClass", icon: GraduationCap },
     { id: "skills", path: "/skill-testing", label: "Skills", icon: ClipboardCheck },
+    { id: "analytics", path: "/analytics", label: "Analytics", icon: BarChart3 },
     { id: "company", path: "/company", label: "Company", icon: Building2 },
   ];
 
