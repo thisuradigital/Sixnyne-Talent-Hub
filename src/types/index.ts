@@ -108,3 +108,10 @@ export interface Task {
 export interface StalledTask extends Task {
   workingDaysStalled: number;
 }
+
+// Holiday Management types
+export interface Holiday {
+  id: string;
+  date: string; // ISO date string (YYYY-MM-DD)
+  name: string;
+}

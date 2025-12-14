@@ -1,4 +1,5 @@
 import { StalledTasksSection } from '@/components/StalledTasksSection';
+import { HolidaySettings } from '@/components/HolidaySettings';
 import { BarChart3 } from 'lucide-react';
 
 export const Analytics = () => {
@@ -17,9 +18,13 @@ export const Analytics = () => {
         </p>
       </div>
 
-      {/* Stalled Tasks Section */}
+      {/* Main Content */}
       <div className="space-y-6">
+        {/* Stalled Tasks Section */}
         <StalledTasksSection />
+
+        {/* Admin Options - Holiday Settings */}
+        <HolidaySettings />
       </div>
     </div>
   );
